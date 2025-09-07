@@ -198,7 +198,7 @@ python scripts/3_evaluation/evaluate_models.py \
 - ✅ Ensemble methods
 
 ### v2.0 - Multimodal (In Development)
-- 🔄 Speech feature integration (Emotion2Vec)
+- 🔄 Speech feature integration
 - 🔄 Cross-modal attention mechanisms
 - 🔄 Multimodal fusion strategies
 - 🔄 Real-time processing pipeline
