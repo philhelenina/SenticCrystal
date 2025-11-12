@@ -49,7 +49,7 @@ def load_embeddings_and_labels(embedding_path: Path, dataset_type: str = 'train'
     embeddings = np.load(embedding_path)
     logger.info(f"Loaded embeddings shape: {embeddings.shape}")
 
-    csv_file = DATA_DIR / f'{dataset_type}_4way_with_minus_one.csv'
+    csv_file = DATA_DIR / f'{dataset_type}_filtered.csv'
     if not csv_file.exists():
         raise FileNotFoundError(f"CSV file not found: {csv_file}")
     df = pd.read_csv(csv_file)
