@@ -2,7 +2,7 @@
 Modified baseline classifier training script focused on opensmile-sroberta embeddings
 Only supports the opensmile-sroberta embedding configuration (expected dim 768)
 
-Example usage: python3 scripts/models/opensmile_sroberta/modified_train_baseline_classifier_ablation.py --model both --fusion_rate 0.05
+Example usage: python3 scripts/models/opensmile_sroberta/modified_train_baseline_classifier_ablation.py --model both --fusion_rate 005
 
 """
 
@@ -11,7 +11,7 @@ import argparse
 from pathlib import Path
 import numpy as np
 import pandas as pd
-from scripts.models.opensmile_sroberta.train_baseline_classifier_ablation import RESULTS_DIR
+# from scripts.models.opensmile_sroberta.train_baseline_classifier_ablation import RESULTS_DIR
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -211,7 +211,7 @@ def save_confusion_matrix_plot(cm, class_names, model_name, embedding_type, save
 def main():
     parser = argparse.ArgumentParser(description="Train baseline classifier on opensmile-sroberta embeddings")
     parser.add_argument('--model', choices=['lstm', 'mlp', 'both'], default='both')
-    parser.add_argument('--fusion_rate', type=float, default=0.05)
+    parser.add_argument('--fusion_rate', type=str, default='005')
 
     parser.add_argument('--hidden_size', type=int, default=256)
     parser.add_argument('--batch_size', type=int, default=32)
@@ -222,9 +222,9 @@ def main():
     parser.add_argument('--early_stopping_patience', type=int, default=10)
     args = parser.parse_args()
 
-    EMBEDDING_DIR = HOME_DIR / 'data' / 'embeddings' / '4way' / 'opensmile_sroberta' / 'alpha_fusion' / {args.fusion_rate} / 'avg_last4' / 'wmean_pos_rev'
+    EMBEDDING_DIR = HOME_DIR / 'data' / 'embeddings' / '4way' / 'opensmile_sroberta' / 'alpha_fusion' / args.fusion_rate / 'avg_last4' / 'wmean_pos_rev'
 
-    RESULTS_DIR = HOME_DIR / 'results' / '4way' / 'opensmile-sroberta' / 'alpha_fusion' / {args.fusion_rate}
+    RESULTS_DIR = HOME_DIR / 'results' / '4way' / 'opensmile-sroberta' / 'alpha_fusion' / args.fusion_rate
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
     # Load datasets using provided .npy paths
