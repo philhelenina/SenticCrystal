@@ -1,9 +1,9 @@
 """
-Modified baseline classifier training script focused on opensmile-sroberta embeddings.
+Modified baseline classifier training script focused on opensmile-sroberta embeddings
+Only supports the opensmile-sroberta embedding configuration (expected dim 768)
 
-Differences from the original:
-- Only supports the opensmile-sroberta embedding configuration (expected dim 856)
-- Accepts paths to the train/val/test .npy embedding files via command-line arguments
+Example usage: python3 scripts/models/opensmile_sroberta/modified_train_baseline_classifier_ablation.py --model both --fusion_rate 0.05
+
 """
 
 import sys
@@ -11,6 +11,7 @@ import argparse
 from pathlib import Path
 import numpy as np
 import pandas as pd
+from scripts.models.opensmile_sroberta.train_baseline_classifier_ablation import RESULTS_DIR
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -32,21 +33,22 @@ logger = logging.getLogger(__name__)
 # Data directory for CSV label files (unchanged)
 HOME_DIR = Path("/home/jovyan/workspace/SenticCrystal")
 DATA_DIR = HOME_DIR / 'data' / 'iemocap_4way_data'
-RESULTS_DIR = HOME_DIR / 'results' / 'opensmile-sroberta'
-RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
 # Expected embedding dimension for opensmile-sroberta
-EXPECTED_DIM = 856
+EXPECTED_DIM = 768
 
-def load_embeddings_and_labels(embedding_path: Path, dataset_type: str = 'train'):
-    """Load embeddings from a provided .npy file and align with CSV labels.
+def load_embeddings_and_labels(embedding_dir: Path, dataset_type: str = 'train'):
+    """
+    Load embeddings from a provided .npz file and align with CSV labels.
 
-    embedding_path: Path to .npy containing embeddings for all rows in the CSV order
+    embedding_dir: Folder containing embeddings for all rows in the CSV order
     dataset_type: one of 'train', 'val', 'test' used to pick CSV file for labels
     Returns: embeddings_filtered, labels_encoded, label_encoder, df_filtered
+
     """
+    embedding_path = embedding_dir / f'{dataset_type}.npz'
     logger.info(f"Loading embeddings from: {embedding_path}")
-    embeddings = np.load(embedding_path)
+    embeddings = np.load(embedding_path)["embeddings"]
     logger.info(f"Loaded embeddings shape: {embeddings.shape}")
 
     csv_file = DATA_DIR / f'{dataset_type}_filtered.csv'
@@ -208,10 +210,9 @@ def save_confusion_matrix_plot(cm, class_names, model_name, embedding_type, save
 
 def main():
     parser = argparse.ArgumentParser(description="Train baseline classifier on opensmile-sroberta embeddings")
-    parser.add_argument('--train_npy', type=Path, required=True, help='Path to train .npy embeddings')
-    parser.add_argument('--val_npy', type=Path, required=True, help='Path to validation .npy embeddings')
-    parser.add_argument('--test_npy', type=Path, required=True, help='Path to test .npy embeddings')
     parser.add_argument('--model', choices=['lstm', 'mlp', 'both'], default='both')
+    parser.add_argument('--fusion_rate', type=float, default=0.05)
+
     parser.add_argument('--hidden_size', type=int, default=256)
     parser.add_argument('--batch_size', type=int, default=32)
     parser.add_argument('--learning_rate', type=float, default=0.0001)
@@ -221,10 +222,15 @@ def main():
     parser.add_argument('--early_stopping_patience', type=int, default=10)
     args = parser.parse_args()
 
+    EMBEDDING_DIR = HOME_DIR / 'data' / 'embeddings' / '4way' / 'opensmile_sroberta' / 'alpha_fusion' / {args.fusion_rate} / 'avg_last4' / 'wmean_pos_rev'
+
+    RESULTS_DIR = HOME_DIR / 'results' / '4way' / 'opensmile-sroberta' / 'alpha_fusion' / {args.fusion_rate}
+    RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+
     # Load datasets using provided .npy paths
-    X_train, y_train, label_encoder, train_df = load_embeddings_and_labels(args.train_npy, 'train')
-    X_val, y_val, _, val_df = load_embeddings_and_labels(args.val_npy, 'val')
-    X_test, y_test, _, test_df = load_embeddings_and_labels(args.test_npy, 'test')
+    X_train, y_train, label_encoder, train_df = load_embeddings_and_labels(EMBEDDING_DIR, 'train')
+    X_val, y_val, _, val_df = load_embeddings_and_labels(EMBEDDING_DIR, 'val')
+    X_test, y_test, _, test_df = load_embeddings_and_labels(EMBEDDING_DIR, 'test')
 
     # Validate embedding dimension
     input_size = X_train.shape[-1]
