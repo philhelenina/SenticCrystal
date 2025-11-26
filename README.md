@@ -1,9 +1,9 @@
-# 🔮 SenticCrystal
+# SenticCrystal
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 
-## 📌 Overview
+## Overview
 
 **SenticCrystal** is an information-theoretic framework for emotion recognition that "crystallizes" the essential principles of emotion from complex text and speech data. Through systematic experiments, we discovered that simpler, interpretable models can achieve performance comparable to complex architectures, leading to our core philosophy: **finding clarity in complexity**.
 
@@ -12,7 +12,7 @@
 - **Complete model recovery** from catastrophic failure (30.9% → 69.94%) using Focal Loss optimization
 - **Balanced classification** across all emotion classes (eliminating 10-80% class bias)
 
-## 🎯 Core Philosophy
+## Core Philosophy
 
 SenticCrystal embodies three fundamental principles:
 
@@ -20,139 +20,140 @@ SenticCrystal embodies three fundamental principles:
 2. **Information Crystallization**: We extract and preserve only the essential information for emotion recognition, removing noise and redundancy
 3. **Balanced Understanding**: Through Focal Loss optimization (α=1.0, γ=1.2), we achieve balanced performance across all emotion classes
 
-## 🏗️ Project Structure
+---
+
+## Experimental Pipeline
+
+This repository includes a comprehensive experimental framework for **Emotion Recognition in Conversation (ERC)** using the IEMOCAP dataset with Sentence-RoBERTa embeddings.
+
+### Experimental Design Rationale
+
+#### Layer Combination Strategies
+
+| Method | Description | Rationale |
+|--------|-------------|-----------|
+| `last` | Use only the final transformer layer | Final layer captures the most task-specific semantic features; serves as a simple baseline |
+| `avg_last4` | Average of last 4 layers | Combines different levels of abstraction; middle layers capture syntactic info while upper layers capture semantics |
+| `last4_scalar_up` | Weighted [1,2,3,4] | Emphasizes deeper layers which contain more refined contextual representations |
+| `last4_scalar_down` | Weighted [4,3,2,1] | Emphasizes shallower layers which preserve more lexical/local features |
+| `last4_scalar_top2` | Weighted [0,1,1,0] | Focuses on layers 10-11 which often show peak performance in probing tasks |
+
+#### Token Pooling Methods
+
+| Method | Description | Rationale |
+|--------|-------------|-----------|
+| `cls` | First token ([CLS]) embedding | Standard BERT-style pooling; captures sentence-level representation |
+| `mean` | Masked mean of all tokens | Distributes attention equally; robust for variable-length inputs |
+| `attn` | CLS-query attention pooling | Learns to weight tokens by relevance to the overall meaning |
+| `wmean_pos` | Position-weighted (front emphasis) | Hypothesis: sentence-initial words set emotional tone |
+| `wmean_pos_rev` | Position-weighted (end emphasis) | Hypothesis: sentence-final words carry emotional climax (common in spoken language) |
+| `wmean_exp_fast` | Exponential decay (τ=2.0) | Strong recency bias; for high-arousal emotions with quick expression |
+| `wmean_exp_med` | Exponential decay (τ=5.0) | Moderate recency bias; balanced approach |
+| `wmean_exp_slow` | Exponential decay (τ=10.0) | Mild recency bias; for emotions that build gradually |
+| `wmean_idf` | IDF-weighted pooling | Emphasizes rare/informative words; reduces impact of stopwords |
+
+#### Aggregators (Hierarchical Models Only)
+
+| Method | Description | Rationale |
+|--------|-------------|-----------|
+| `mean` | Average all sentence embeddings | Simple baseline; treats all sentences equally |
+| `sum` | Sum all sentence embeddings | Preserves magnitude information; longer utterances get stronger signal |
+| `expdecay` | Exponential decay weighting | Later sentences (closer to utterance end) often carry the final emotional state |
+| `attn` | Learned attention weights | Allows model to learn which sentences are most emotionally salient |
+| `lstm` | LSTM over sentence sequence | Captures sequential dynamics; emotion can evolve through an utterance |
+
+#### Classifier Architectures
+
+| Model | Description | Rationale |
+|-------|-------------|-----------|
+| `MLP` | 2-layer feedforward network | Fast, interpretable; works well when embeddings are already semantically rich |
+| `LSTM` | Single-layer LSTM | Captures sequential patterns in the embedding dimensions; useful for temporal features |
+
+#### Task Configurations
+
+| Task | Classes | Rationale |
+|------|---------|-----------|
+| **4-way** | anger, happiness, sadness, neutral | Standard benchmark; merges similar emotions (excited→happy) for cleaner separation |
+| **6-way** | anger, happiness, sadness, neutral, excited, frustrated | Fine-grained classification; tests model's ability to distinguish subtle emotional differences |
+
+#### Statistical Rigor
+
+- **10 random seeds (42-51)**: Ensures reproducibility and enables statistical significance testing
+- **Early stopping (patience=60)**: Prevents overfitting while allowing sufficient training
+- **Class-weighted loss**: Handles IEMOCAP's inherent class imbalance
+
+---
+
+## Repository Structure
 
 ```
 SenticCrystal/
 │
-├── src/                          # Core reusable components
-│   ├── models/                   # Model architectures
-│   │   ├── mlp.py               # MLP classifier with Focal Loss
-│   │   ├── lstm_context.py      # Contextual LSTM implementations
-│   │   └── ensemble.py          # Ensemble methods
+├── scripts/
+│   ├── generators/                    # Embedding generation scripts
+│   │   ├── flat/
+│   │   │   ├── generate_sroberta_npz_4way.py
+│   │   │   └── generate_sroberta_npz_6way.py
+│   │   └── hierarchical/
+│   │       ├── generate_sroberta_hier_npz.py
+│   │       ├── generate_sroberta_hier_npz_4way.py
+│   │       └── generate_sroberta_hier_npz_6way.py
 │   │
-│   ├── features/                 # Feature extraction modules
-│   │   ├── wordnet_affect.py    # WordNet-Affect emotional embeddings
-│   │   ├── sentence_roberta.py  # Sentence-level RoBERTa embeddings
-│   │   └── context_window.py    # Multi-turn context processing
+│   ├── trainers/                      # Model training scripts
+│   │   ├── flat/
+│   │   │   ├── train_npz_classifier_4way_verbose.py
+│   │   │   └── train_npz_classifier_6way_verbose.py
+│   │   └── hierarchical/
+│   │       ├── train_npz_hier_classifier_4way.py
+│   │       ├── train_npz_hier_classifier_6way.py
+│   │       └── train_npz_hier_fused_classifier.py
 │   │
-│   ├── analysis/                 # Analysis tools
-│   │   ├── information_theory.py # Entropy, MI calculations
-│   │   ├── class_balance.py     # Class imbalance analysis
-│   │   └── confidence_metrics.py # Prediction confidence analysis
-│   │
-│   └── utils/                    # Utility functions
-│       ├── data_loader.py       # IEMOCAP data loading
-│       ├── preprocessing.py     # Text preprocessing
-│       └── focal_loss.py        # Focal Loss implementation
+│   └── runners/                       # Experiment execution scripts
+│       ├── flat/
+│       │   ├── run_all_n10_flat.sh
+│       │   └── run_n10_gpu[0-3]_*way_*.sh
+│       └── hierarchical/
+│           ├── run_all_n10_hier.sh
+│           └── run_n10_hier_gpu[0-3]_*way.sh
 │
-├── scripts/                      # Execution scripts (workflow-ordered)
-│   ├── 1_data_preparation/
-│   │   ├── prepare_iemocap.py   # IEMOCAP dataset preparation
-│   │   └── generate_embeddings.py # Generate text embeddings
-│   │
-│   ├── 2_training/
-│   │   ├── train_baseline.py    # Train baseline models
-│   │   ├── train_focal_loss.py  # Train with Focal Loss
-│   │   └── train_ensemble.py    # Train ensemble models
-│   │
-│   ├── 3_evaluation/
-│   │   ├── evaluate_models.py   # Model evaluation
-│   │   ├── analyze_errors.py    # Error analysis
-│   │   └── generate_reports.py  # Generate performance reports
-│   │
-│   └── 4_experiments/
-│       ├── ablation_study.py    # Component ablation studies
-│       └── parameter_search.py  # Hyperparameter optimization
+├── docs/
+│   ├── COMMIT_MESSAGE.md
+│   └── DOCSTRINGS.md
 │
-├── configs/                      # Configuration files
-│   ├── model_configs.yaml       # Model configurations
-│   ├── training_configs.yaml    # Training parameters
-│   └── focal_loss_params.yaml   # Optimal Focal Loss parameters
-│
-├── results/                      # Outputs and results
-│   ├── models/                  # Saved model checkpoints
-│   ├── logs/                    # Training logs
-│   ├── figures/                 # Visualizations
-│   └── reports/                 # Performance reports
-│
-├── notebooks/                    # Jupyter notebooks
-│   ├── data_exploration.ipynb   # Data analysis
-│   └── result_visualization.ipynb # Result visualization
-│
-├── tests/                        # Unit tests
-│   └── test_focal_loss.py       # Test Focal Loss implementation
-│
-├── requirements.txt              # Python dependencies
-├── setup.py                      # Package setup
-├── LICENSE                       # MIT License
-└── README.md                     # This file
+└── README.md
 ```
 
-## 🚀 Getting Started
+## Experiment Scale
 
-### Prerequisites
+| Experiment Type | Configurations | Seeds | Total Runs |
+|-----------------|----------------|-------|------------|
+| Flat Baseline | 3 encoders × 2 layers × 3 pools × 2 classifiers | 10 | 720 |
+| Hierarchical | 2 layers × 2 pools × 5 aggregators × 2 classifiers | 10 | 480 |
+| **Grand Total** | | | **1,200** |
 
-- Python 3.8 or higher
-- CUDA 11.0+ (optional, for GPU acceleration)
-- IEMOCAP dataset access (requires license agreement)
+## Usage
 
-### Installation
-
-1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/SenticCrystal.git
-cd SenticCrystal
+# Run all flat experiments (4 GPUs in parallel)
+./scripts/runners/flat/run_all_n10_flat.sh
+
+# Run all hierarchical experiments (4 GPUs in parallel)
+./scripts/runners/hierarchical/run_all_n10_hier.sh
+
+# Monitor progress
+tail -f scripts/runners/flat/n10_gpu0_flat.log
 ```
 
-2. Create a virtual environment:
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
+## Output
 
-3. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
+Each experiment produces:
+- `results.json`: Metrics (accuracy, macro-F1, weighted-F1, per-class F1)
+- `confusion_matrix.png`: Visualization of predictions
+- `cls_report.txt`: Detailed classification report
 
-4. Download required models and resources:
-```bash
-python scripts/download_resources.py
-```
+---
 
-### Quick Start
-
-1. **Prepare IEMOCAP dataset:**
-```bash
-python scripts/1_data_preparation/prepare_iemocap.py \
-    --data_path /path/to/IEMOCAP \
-    --output_path data/processed/
-```
-
-2. **Generate embeddings:**
-```bash
-python scripts/1_data_preparation/generate_embeddings.py \
-    --config configs/model_configs.yaml \
-    --context_window 5
-```
-
-3. **Train model with Focal Loss:**
-```bash
-python scripts/2_training/train_focal_loss.py \
-    --alpha 1.0 \
-    --gamma 1.2 \
-    --config configs/training_configs.yaml
-```
-
-4. **Evaluate performance:**
-```bash
-python scripts/3_evaluation/evaluate_models.py \
-    --model_path results/models/best_model.pth \
-    --test_data data/processed/test.pkl
-```
-
-## 📊 Performance
+## Performance
 
 ### Text-Only Model (v1.0)
 
@@ -174,7 +175,7 @@ python scripts/3_evaluation/evaluate_models.py \
 | Sad | 61.4% | 71% | +9.6% |
 | Neutral | 10.0% | 66% | +56.0% |
 
-## 🔬 Key Innovations
+## Key Innovations
 
 1. **Focal Loss Optimization for Emotions**
    - Discovered optimal parameters: α=1.0, γ=1.2 (vs. standard γ=2.0)
@@ -189,7 +190,7 @@ python scripts/3_evaluation/evaluate_models.py \
    - First demonstration of complete recovery from catastrophic failure
    - 30.9% → 69.94% accuracy through systematic optimization
 
-## 🗺️ Roadmap
+## Roadmap
 
 ### v1.0 - Text-Only (Current)
 - ✅ Hierarchical text processing
@@ -209,7 +210,15 @@ python scripts/3_evaluation/evaluate_models.py \
 - ⏳ Cross-lingual emotion recognition
 - ⏳ Deployment-ready API
 
-## 📝 Citation
+## Dependencies
+
+- Python 3.8+
+- PyTorch 1.9+
+- Transformers (Hugging Face)
+- scikit-learn
+- pandas, numpy, matplotlib
+
+## Citation
 
 If you use SenticCrystal in your research, please cite:
 
@@ -222,21 +231,21 @@ If you use SenticCrystal in your research, please cite:
 }
 ```
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - IEMOCAP dataset creators at USC SAIL
 - Sentence-Transformers and Hugging Face teams
 - WordNet-Affect creators
 
-## 📧 Contact
+## Contact
 
 For questions and collaborations: cheonkamjeong@gmail.com
 
