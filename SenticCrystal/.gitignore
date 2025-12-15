@@ -25,6 +25,9 @@ venv/
 data/
 *.npz
 
+# SenticNet (too large)
+src/features/senticnet/
+
 # Model weights
 *.pt
 *.pth
