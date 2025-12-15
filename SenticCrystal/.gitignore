@@ -1,0 +1,71 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Environment
+.env
+.venv
+env/
+venv/
+*.egg-info/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+.claude/
+
+# Data (too large for git)
+data/
+*.npz
+
+# Model weights
+*.pt
+*.pth
+*.ckpt
+
+# Results - exclude all raw experiment outputs
+results/turnlevel_k_sweep_bayesian/
+results/baseline/
+results/senticnet_experiments/
+results/bayesian_optimization/
+results/turnlevel_bayesian_optimization/
+results/hier_baseline/
+results/statistics/
+results/test_debug/
+results/reports/
+results/analysis/
+results/discourse_markers_grammaticalized/
+results_n10/
+logs/
+
+# Images and figures
+*.png
+*.jpg
+*.jpeg
+
+# JSON results
+results/**/*.json
+
+# Temporary
+*.tmp
+*.log
+*.cache
+*.pkl
+*.pickle
+
+# Docs (private notes)
+docs/
+PORTFOLIO_SUMMARY.md
+
+# Keep these essential files
+!results/STATISTICAL_ANALYSIS_SUMMARY.md
+!results/discourse_markers/
+results/discourse_markers/*
+!results/discourse_markers/*.csv
