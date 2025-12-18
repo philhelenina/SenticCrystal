@@ -1,0 +1,200 @@
+name: senticcrystal-saturn
+channels:
+  - conda-forge
+  - pytorch
+  - nvidia
+  - defaults
+dependencies:
+  # Python
+  - python=3.10
+
+  # PyTorch with CUDA support for A100
+  - pytorch=2.1.*
+  - torchvision=0.16.*
+  - pytorch-cuda=12.1
+  - cudatoolkit=12.1
+  
+  # Core ML/DL libraries
+  - numpy=1.24.*
+  - pandas=2.0.*
+  - scikit-learn=1.3.*
+  - matplotlib=3.7.*
+  - seaborn=0.12.*
+  - jupyter=1.0.*
+  - ipykernel=6.25.*
+  
+  # NLP libraries
+  - transformers=4.35.*
+  - tokenizers=0.14.*
+  - datasets=2.14.*
+  - nltk=3.8.*
+  
+  # Additional scientific libraries
+  - scipy=1.11.*
+  - tqdm=4.66.*
+  - requests=2.31.*
+  
+  # System utilities
+  - git=2.42.*
+  - wget=1.21.*
+  - unzip=6.0.*
+  
+  # Development tools
+  - black=23.9.*
+  - flake8=6.1.*
+  - pytest=7.4.*
+  
+  # Pip dependencies (not available in conda)
+  - pip=23.2.*
+  - pip:
+    # Sentence Transformers ecosystem
+    - sentence-transformers==2.2.2
+    - sentence-transformers[dev]==2.2.2
+    
+    # Hugging Face ecosystem  
+    - accelerate==0.24.1
+    - safetensors==0.4.0
+    
+    # WordNet and linguistic resources
+    - wordnet==0.0.1b2
+    - wn==0.9.1
+    - nltk-data==2023.5.0
+    
+    # Bayesian ML libraries
+    - torch-uncertainty==0.2.1
+    - pyro-ppl==1.8.6
+    - blitz-bayesian-pytorch==0.2.7
+    
+    # Information theory libraries
+    - mutual-info==1.0.0
+    - dit==1.5.0  # Discrete Information Theory
+    
+    # Visualization and analysis
+    - plotly==5.17.0
+    - wandb==0.16.0  # For experiment tracking
+    - tensorboard==2.15.1
+    
+    # Performance optimization
+    - numba==0.58.1
+    - memory-profiler==0.61.0
+    
+    # File format support
+    - xmltodict==0.13.0  # For WordNet-Affect XML parsing
+    - h5py==3.10.0      # For HDF5 storage
+    
+    # Saturn Cloud specific
+    - saturn-client==1.3.0
+    - dask[complete]==2023.10.1  # For distributed computing
+    
+    # Focal loss implementation
+    - focal-loss-torch==0.0.1
+    
+    # Configuration management
+    - omegaconf==2.3.0
+    - hydra-core==1.3.2
+    
+variables:
+  # CUDA environment variables for A100 optimization
+  CUDA_VISIBLE_DEVICES: "0,1"
+  CUDA_DEVICE_ORDER: "PCI_BUS_ID"
+  
+  # PyTorch performance settings for A100
+  TORCH_USE_CUDA_DSA: "1"
+  TORCH_COMPILE_MODE: "reduce-overhead"
+  
+  # Hugging Face cache (use Saturn's shared storage)
+  HF_HOME: "/tmp/huggingface"
+  TRANSFORMERS_CACHE: "/tmp/huggingface/transformers"
+  HF_DATASETS_CACHE: "/tmp/huggingface/datasets"
+  
+  # NLTK data path
+  NLTK_DATA: "/tmp/nltk_data"
+  
+  # Saturn Cloud optimizations
+  SATURN_CLOUD: "true"
+  CUDA_LAUNCH_BLOCKING: "0"  # For performance
+  
+  # Memory management for A100 (80GB VRAM)
+  PYTORCH_CUDA_ALLOC_CONF: "max_split_size_mb:2048"
+  
+# Post-installation commands for Saturn Cloud
+# These run after environment creation
+post_build:
+  - |
+    # Download NLTK data
+    python -c "
+    import nltk
+    import ssl
+    try:
+        _create_unverified_https_context = ssl._create_unverified_context
+    except AttributeError:
+        pass
+    else:
+        ssl._create_default_https_context = _create_unverified_https_context
+    
+    nltk.download('punkt', download_dir='/tmp/nltk_data', quiet=True)
+    nltk.download('stopwords', download_dir='/tmp/nltk_data', quiet=True)
+    nltk.download('wordnet', download_dir='/tmp/nltk_data', quiet=True)
+    nltk.download('omw-1.4', download_dir='/tmp/nltk_data', quiet=True)
+    print('NLTK data downloaded successfully')
+    "
+    
+  - |
+    # Verify CUDA and PyTorch installation
+    python -c "
+    import torch
+    print(f'PyTorch version: {torch.__version__}')
+    print(f'CUDA available: {torch.cuda.is_available()}')
+    print(f'CUDA device count: {torch.cuda.device_count()}')
+    if torch.cuda.is_available():
+        for i in range(torch.cuda.device_count()):
+            print(f'GPU {i}: {torch.cuda.get_device_name(i)}')
+            print(f'Memory: {torch.cuda.get_device_properties(i).total_memory / 1e9:.1f} GB')
+    print('CUDA setup verified')
+    "
+    
+  - |
+    # Pre-download core models to cache
+    python -c "
+    from sentence_transformers import SentenceTransformer
+    try:
+        model = SentenceTransformer('all-MiniLM-L6-v2')
+        print('Downloaded all-MiniLM-L6-v2')
+        model = SentenceTransformer('all-mpnet-base-v2') 
+        print('Downloaded all-mpnet-base-v2')
+        print('Core models pre-downloaded')
+    except Exception as e:
+        print(f'Model download failed: {e}')
+    "
+
+# Additional notes for Saturn Cloud deployment
+notes: |
+  Saturn Cloud A100 SXM4-80GB Optimized Environment
+  
+  Features:
+  - Dual A100 GPU support (160GB total VRAM)
+  - CUDA 12.1 with PyTorch 2.1
+  - Pre-cached Sentence-Transformers models
+  - Bayesian ML libraries for uncertainty quantification
+  - Information theory tools for optimization
+  - Distributed computing with Dask
+  - Experiment tracking with W&B
+  
+  Performance Optimizations:
+  - Max split size for memory allocation: 2GB chunks
+  - CUDA device ordering by PCI bus
+  - Compiled mode for PyTorch (reduce-overhead)
+  - Shared cache directories for efficiency
+  
+  Usage:
+  1. Create Saturn Cloud workspace with A100 instances
+  2. Upload this environment.yml 
+  3. Build environment: conda env create -f environment_saturn_cloud.yml
+  4. Activate: conda activate senticcrystal-saturn
+  5. Launch Jupyter: jupyter lab --ip=0.0.0.0 --allow-root
+  
+  Memory Management:
+  - A100 80GB × 2 = 160GB total VRAM
+  - Recommended batch sizes: 128-256 for training
+  - Context window: Up to K=35 turns supported
+  - Model parallelism across both GPUs

@@ -1,0 +1,2602 @@
+[
+  {
+    "config_id": "Config_0001",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0001",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "lstm",
+      "context_turns": 1,
+      "architecture": "MLP",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+lstm+1turn+MLP+Focal"
+    },
+    "test_accuracy": 0.41,
+    "test_f1_weighted": 0.4101201332337983,
+    "test_f1_macro": 0.3805257587511933,
+    "best_val_f1": 0.34860804197707407,
+    "training_time": 5.210409164428711,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0002",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0002",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "lstm",
+      "context_turns": 1,
+      "architecture": "MLP",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+lstm+1turn+MLP+CE"
+    },
+    "test_accuracy": 0.37,
+    "test_f1_weighted": 0.3759780009752232,
+    "test_f1_macro": 0.35211647287942016,
+    "best_val_f1": 0.35047740076376643,
+    "training_time": 2.8093230724334717,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0003",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0003",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "lstm",
+      "context_turns": 1,
+      "architecture": "LSTM",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+lstm+1turn+LSTM+Focal"
+    },
+    "test_accuracy": 0.3075,
+    "test_f1_weighted": 0.313690732389693,
+    "test_f1_macro": 0.29843035349448144,
+    "best_val_f1": 0.31978222133173045,
+    "training_time": 6.4888200759887695,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0004",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0004",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "lstm",
+      "context_turns": 1,
+      "architecture": "LSTM",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+lstm+1turn+LSTM+CE"
+    },
+    "test_accuracy": 0.3675,
+    "test_f1_weighted": 0.37285843147228803,
+    "test_f1_macro": 0.3402516872257366,
+    "best_val_f1": 0.36582482680962525,
+    "training_time": 5.082546949386597,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0005",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0005",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "lstm",
+      "context_turns": 2,
+      "architecture": "MLP",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+lstm+2turn+MLP+Focal"
+    },
+    "test_accuracy": 0.3425,
+    "test_f1_weighted": 0.33772090883789974,
+    "test_f1_macro": 0.30861271595258133,
+    "best_val_f1": 0.34626259879150323,
+    "training_time": 2.415818214416504,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0006",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0006",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "lstm",
+      "context_turns": 2,
+      "architecture": "MLP",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+lstm+2turn+MLP+CE"
+    },
+    "test_accuracy": 0.3625,
+    "test_f1_weighted": 0.36978310388708,
+    "test_f1_macro": 0.3264297531801267,
+    "best_val_f1": 0.3140378794941178,
+    "training_time": 1.6536750793457031,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0007",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0007",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "lstm",
+      "context_turns": 2,
+      "architecture": "LSTM",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+lstm+2turn+LSTM+Focal"
+    },
+    "test_accuracy": 0.3,
+    "test_f1_weighted": 0.3029360021760943,
+    "test_f1_macro": 0.27168656853260176,
+    "best_val_f1": 0.35626007467609166,
+    "training_time": 5.80163311958313,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0008",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0008",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "lstm",
+      "context_turns": 2,
+      "architecture": "LSTM",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+lstm+2turn+LSTM+CE"
+    },
+    "test_accuracy": 0.3075,
+    "test_f1_weighted": 0.3127225282234496,
+    "test_f1_macro": 0.2898068679055309,
+    "best_val_f1": 0.3438296768153696,
+    "training_time": 4.288949012756348,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0009",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0009",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "lstm",
+      "context_turns": 3,
+      "architecture": "MLP",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+lstm+3turn+MLP+Focal"
+    },
+    "test_accuracy": 0.2975,
+    "test_f1_weighted": 0.2957380015187604,
+    "test_f1_macro": 0.26053569062852877,
+    "best_val_f1": 0.35227221694294863,
+    "training_time": 2.6412110328674316,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0010",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0010",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "lstm",
+      "context_turns": 3,
+      "architecture": "MLP",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+lstm+3turn+MLP+CE"
+    },
+    "test_accuracy": 0.285,
+    "test_f1_weighted": 0.2894450275859734,
+    "test_f1_macro": 0.2614298534804649,
+    "best_val_f1": 0.2860904872406424,
+    "training_time": 2.4112279415130615,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0011",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0011",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "lstm",
+      "context_turns": 3,
+      "architecture": "LSTM",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+lstm+3turn+LSTM+Focal"
+    },
+    "test_accuracy": 0.2725,
+    "test_f1_weighted": 0.28658468468299886,
+    "test_f1_macro": 0.25096561550414814,
+    "best_val_f1": 0.2832198157784132,
+    "training_time": 4.201000928878784,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0012",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0012",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "lstm",
+      "context_turns": 3,
+      "architecture": "LSTM",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+lstm+3turn+LSTM+CE"
+    },
+    "test_accuracy": 0.295,
+    "test_f1_weighted": 0.2974781900466055,
+    "test_f1_macro": 0.2803648772305787,
+    "best_val_f1": 0.355317804282808,
+    "training_time": 4.546626091003418,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0013",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0013",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "lstm",
+      "context_turns": 4,
+      "architecture": "MLP",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+lstm+4turn+MLP+Focal"
+    },
+    "test_accuracy": 0.3025,
+    "test_f1_weighted": 0.3036301172381213,
+    "test_f1_macro": 0.2724371548443194,
+    "best_val_f1": 0.2591412632290148,
+    "training_time": 2.755156993865967,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0014",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0014",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "lstm",
+      "context_turns": 4,
+      "architecture": "MLP",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+lstm+4turn+MLP+CE"
+    },
+    "test_accuracy": 0.3425,
+    "test_f1_weighted": 0.3439539233605495,
+    "test_f1_macro": 0.30468875868899054,
+    "best_val_f1": 0.2725800806928507,
+    "training_time": 2.579007148742676,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0015",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0015",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "lstm",
+      "context_turns": 4,
+      "architecture": "LSTM",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+lstm+4turn+LSTM+Focal"
+    },
+    "test_accuracy": 0.2475,
+    "test_f1_weighted": 0.2578681694457787,
+    "test_f1_macro": 0.23732972350278325,
+    "best_val_f1": 0.234295405882042,
+    "training_time": 4.717550039291382,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0016",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0016",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "lstm",
+      "context_turns": 4,
+      "architecture": "LSTM",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+lstm+4turn+LSTM+CE"
+    },
+    "test_accuracy": 0.275,
+    "test_f1_weighted": 0.28461293752256234,
+    "test_f1_macro": 0.26516351757830736,
+    "best_val_f1": 0.29518869910874307,
+    "training_time": 4.725265979766846,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0017",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0017",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "transformer",
+      "context_turns": 1,
+      "architecture": "MLP",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+transformer+1turn+MLP+Focal"
+    },
+    "test_accuracy": 0.3625,
+    "test_f1_weighted": 0.3645439807939808,
+    "test_f1_macro": 0.3350782100782101,
+    "best_val_f1": 0.34185725518659654,
+    "training_time": 2.7351748943328857,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0018",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0018",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "transformer",
+      "context_turns": 1,
+      "architecture": "MLP",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+transformer+1turn+MLP+CE"
+    },
+    "test_accuracy": 0.3825,
+    "test_f1_weighted": 0.38925235965090016,
+    "test_f1_macro": 0.36174362545293887,
+    "best_val_f1": 0.35609742352819096,
+    "training_time": 5.112492084503174,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0019",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0019",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "transformer",
+      "context_turns": 1,
+      "architecture": "LSTM",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+transformer+1turn+LSTM+Focal"
+    },
+    "test_accuracy": 0.3775,
+    "test_f1_weighted": 0.38695216504875596,
+    "test_f1_macro": 0.3629416458961914,
+    "best_val_f1": 0.376504099540768,
+    "training_time": 4.548379898071289,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0020",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0020",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "transformer",
+      "context_turns": 1,
+      "architecture": "LSTM",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+transformer+1turn+LSTM+CE"
+    },
+    "test_accuracy": 0.35,
+    "test_f1_weighted": 0.35750082496184554,
+    "test_f1_macro": 0.3362394489254872,
+    "best_val_f1": 0.3347791256153195,
+    "training_time": 5.961825847625732,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0021",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0021",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "transformer",
+      "context_turns": 2,
+      "architecture": "MLP",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+transformer+2turn+MLP+Focal"
+    },
+    "test_accuracy": 0.2975,
+    "test_f1_weighted": 0.3024598140016208,
+    "test_f1_macro": 0.2750470735581099,
+    "best_val_f1": 0.33964088867403874,
+    "training_time": 4.280211925506592,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0022",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0022",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "transformer",
+      "context_turns": 2,
+      "architecture": "MLP",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+transformer+2turn+MLP+CE"
+    },
+    "test_accuracy": 0.28,
+    "test_f1_weighted": 0.28194225599013434,
+    "test_f1_macro": 0.2637832562515655,
+    "best_val_f1": 0.2916802024656932,
+    "training_time": 3.6306419372558594,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0023",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0023",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "transformer",
+      "context_turns": 2,
+      "architecture": "LSTM",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+transformer+2turn+LSTM+Focal"
+    },
+    "test_accuracy": 0.295,
+    "test_f1_weighted": 0.30386444751125735,
+    "test_f1_macro": 0.27949962679223783,
+    "best_val_f1": 0.2895202167471731,
+    "training_time": 6.256324768066406,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0024",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0024",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "transformer",
+      "context_turns": 2,
+      "architecture": "LSTM",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+transformer+2turn+LSTM+CE"
+    },
+    "test_accuracy": 0.3575,
+    "test_f1_weighted": 0.36528756449760297,
+    "test_f1_macro": 0.34311780719333873,
+    "best_val_f1": 0.34575804727918896,
+    "training_time": 6.0123209953308105,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0025",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0025",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "transformer",
+      "context_turns": 3,
+      "architecture": "MLP",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+transformer+3turn+MLP+Focal"
+    },
+    "test_accuracy": 0.2825,
+    "test_f1_weighted": 0.2860191796538007,
+    "test_f1_macro": 0.2682808737477016,
+    "best_val_f1": 0.26743383891991246,
+    "training_time": 4.976838827133179,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0026",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0026",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "transformer",
+      "context_turns": 3,
+      "architecture": "MLP",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+transformer+3turn+MLP+CE"
+    },
+    "test_accuracy": 0.3025,
+    "test_f1_weighted": 0.3089406009287839,
+    "test_f1_macro": 0.28557601296431046,
+    "best_val_f1": 0.30388312724950656,
+    "training_time": 3.907623052597046,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0027",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0027",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "transformer",
+      "context_turns": 3,
+      "architecture": "LSTM",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+transformer+3turn+LSTM+Focal"
+    },
+    "test_accuracy": 0.275,
+    "test_f1_weighted": 0.275443766399567,
+    "test_f1_macro": 0.24038919187640465,
+    "best_val_f1": 0.2804875776663856,
+    "training_time": 4.357692241668701,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0028",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0028",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "transformer",
+      "context_turns": 3,
+      "architecture": "LSTM",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+transformer+3turn+LSTM+CE"
+    },
+    "test_accuracy": 0.2825,
+    "test_f1_weighted": 0.28856265997635466,
+    "test_f1_macro": 0.2597691629834434,
+    "best_val_f1": 0.3015149810877372,
+    "training_time": 4.190369606018066,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0029",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0029",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "transformer",
+      "context_turns": 4,
+      "architecture": "MLP",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+transformer+4turn+MLP+Focal"
+    },
+    "test_accuracy": 0.32,
+    "test_f1_weighted": 0.325792149594061,
+    "test_f1_macro": 0.28979381582631025,
+    "best_val_f1": 0.32691999413786327,
+    "training_time": 3.0376031398773193,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0030",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0030",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "transformer",
+      "context_turns": 4,
+      "architecture": "MLP",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+transformer+4turn+MLP+CE"
+    },
+    "test_accuracy": 0.2825,
+    "test_f1_weighted": 0.2936034076697986,
+    "test_f1_macro": 0.2531727335888805,
+    "best_val_f1": 0.31990301039956215,
+    "training_time": 1.6727218627929688,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0031",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0031",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "transformer",
+      "context_turns": 4,
+      "architecture": "LSTM",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+transformer+4turn+LSTM+Focal"
+    },
+    "test_accuracy": 0.24,
+    "test_f1_weighted": 0.24712598156049081,
+    "test_f1_macro": 0.23602805964455265,
+    "best_val_f1": 0.29296772635041585,
+    "training_time": 2.1677188873291016,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0032",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0032",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "transformer",
+      "context_turns": 4,
+      "architecture": "LSTM",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+transformer+4turn+LSTM+CE"
+    },
+    "test_accuracy": 0.31,
+    "test_f1_weighted": 0.3181702643349865,
+    "test_f1_macro": 0.2940597530471678,
+    "best_val_f1": 0.2707196734498577,
+    "training_time": 2.75816011428833,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0033",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0033",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "context_lstm",
+      "context_turns": 1,
+      "architecture": "MLP",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+context_lstm+1turn+MLP+Focal"
+    },
+    "test_accuracy": 0.3875,
+    "test_f1_weighted": 0.38906926876190595,
+    "test_f1_macro": 0.3606849494467107,
+    "best_val_f1": 0.3980100241795157,
+    "training_time": 1.8452417850494385,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0034",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0034",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "context_lstm",
+      "context_turns": 1,
+      "architecture": "MLP",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+context_lstm+1turn+MLP+CE"
+    },
+    "test_accuracy": 0.4025,
+    "test_f1_weighted": 0.40652149546199523,
+    "test_f1_macro": 0.36815296845711637,
+    "best_val_f1": 0.3419852402541936,
+    "training_time": 1.626943826675415,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0035",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0035",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "context_lstm",
+      "context_turns": 1,
+      "architecture": "LSTM",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+context_lstm+1turn+LSTM+Focal"
+    },
+    "test_accuracy": 0.365,
+    "test_f1_weighted": 0.37225014541427903,
+    "test_f1_macro": 0.34265112074995585,
+    "best_val_f1": 0.3677579206306867,
+    "training_time": 2.820773124694824,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0036",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0036",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "context_lstm",
+      "context_turns": 1,
+      "architecture": "LSTM",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+context_lstm+1turn+LSTM+CE"
+    },
+    "test_accuracy": 0.3225,
+    "test_f1_weighted": 0.33140173894934594,
+    "test_f1_macro": 0.31447706660490415,
+    "best_val_f1": 0.3863498633496081,
+    "training_time": 2.791937828063965,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0037",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0037",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "context_lstm",
+      "context_turns": 2,
+      "architecture": "MLP",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+context_lstm+2turn+MLP+Focal"
+    },
+    "test_accuracy": 0.2875,
+    "test_f1_weighted": 0.2932252738847756,
+    "test_f1_macro": 0.2626495254731699,
+    "best_val_f1": 0.32729004677188583,
+    "training_time": 1.8777563571929932,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0038",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0038",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "context_lstm",
+      "context_turns": 2,
+      "architecture": "MLP",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+context_lstm+2turn+MLP+CE"
+    },
+    "test_accuracy": 0.345,
+    "test_f1_weighted": 0.35286121364446243,
+    "test_f1_macro": 0.32324995182855176,
+    "best_val_f1": 0.33119688489780785,
+    "training_time": 1.8264238834381104,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0039",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0039",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "context_lstm",
+      "context_turns": 2,
+      "architecture": "LSTM",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+context_lstm+2turn+LSTM+Focal"
+    },
+    "test_accuracy": 0.285,
+    "test_f1_weighted": 0.29131225175559583,
+    "test_f1_macro": 0.26329207259777493,
+    "best_val_f1": 0.30840218803853425,
+    "training_time": 2.3086509704589844,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0040",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0040",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "context_lstm",
+      "context_turns": 2,
+      "architecture": "LSTM",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+context_lstm+2turn+LSTM+CE"
+    },
+    "test_accuracy": 0.31,
+    "test_f1_weighted": 0.31798803772467443,
+    "test_f1_macro": 0.28292224507818325,
+    "best_val_f1": 0.35669396824512434,
+    "training_time": 2.7138638496398926,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0041",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0041",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "context_lstm",
+      "context_turns": 3,
+      "architecture": "MLP",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+context_lstm+3turn+MLP+Focal"
+    },
+    "test_accuracy": 0.285,
+    "test_f1_weighted": 0.2936803343081531,
+    "test_f1_macro": 0.2571157848423121,
+    "best_val_f1": 0.3055571119751235,
+    "training_time": 1.8918440341949463,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0042",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0042",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "context_lstm",
+      "context_turns": 3,
+      "architecture": "MLP",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+context_lstm+3turn+MLP+CE"
+    },
+    "test_accuracy": 0.27,
+    "test_f1_weighted": 0.27690085241755297,
+    "test_f1_macro": 0.2524938715711755,
+    "best_val_f1": 0.26653184114528494,
+    "training_time": 1.8303029537200928,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0043",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0043",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "context_lstm",
+      "context_turns": 3,
+      "architecture": "LSTM",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+context_lstm+3turn+LSTM+Focal"
+    },
+    "test_accuracy": 0.28,
+    "test_f1_weighted": 0.2867963002653656,
+    "test_f1_macro": 0.2673729215439416,
+    "best_val_f1": 0.28390359017001754,
+    "training_time": 2.9732308387756348,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0044",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0044",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "context_lstm",
+      "context_turns": 3,
+      "architecture": "LSTM",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+context_lstm+3turn+LSTM+CE"
+    },
+    "test_accuracy": 0.2375,
+    "test_f1_weighted": 0.24472747596652097,
+    "test_f1_macro": 0.23176760180533146,
+    "best_val_f1": 0.2849452843949488,
+    "training_time": 2.6888818740844727,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0045",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0045",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "context_lstm",
+      "context_turns": 4,
+      "architecture": "MLP",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+context_lstm+4turn+MLP+Focal"
+    },
+    "test_accuracy": 0.2625,
+    "test_f1_weighted": 0.2666504446816894,
+    "test_f1_macro": 0.24603452144216464,
+    "best_val_f1": 0.26364992841578183,
+    "training_time": 1.6076509952545166,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0046",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0046",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "context_lstm",
+      "context_turns": 4,
+      "architecture": "MLP",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+context_lstm+4turn+MLP+CE"
+    },
+    "test_accuracy": 0.28,
+    "test_f1_weighted": 0.2854889159221001,
+    "test_f1_macro": 0.26155669777792534,
+    "best_val_f1": 0.23864486769296056,
+    "training_time": 1.0227580070495605,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0047",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0047",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "context_lstm",
+      "context_turns": 4,
+      "architecture": "LSTM",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+context_lstm+4turn+LSTM+Focal"
+    },
+    "test_accuracy": 0.2475,
+    "test_f1_weighted": 0.252762187017767,
+    "test_f1_macro": 0.23555537273520194,
+    "best_val_f1": 0.29312118087900924,
+    "training_time": 1.4688129425048828,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0048",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0048",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "context_lstm",
+      "context_turns": 4,
+      "architecture": "LSTM",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+context_lstm+4turn+LSTM+CE"
+    },
+    "test_accuracy": 0.265,
+    "test_f1_weighted": 0.2639416227104104,
+    "test_f1_macro": 0.2342536372594482,
+    "best_val_f1": 0.28571387449053026,
+    "training_time": 1.4915990829467773,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0049",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0049",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "concatenate",
+      "bayesian_method": "lstm",
+      "context_turns": 1,
+      "architecture": "MLP",
+      "use_focal_loss": true,
+      "description": "simple_mean+concatenate+lstm+1turn+MLP+Focal"
+    },
+    "test_accuracy": 0.43,
+    "test_f1_weighted": 0.4349403776981983,
+    "test_f1_macro": 0.4111766071264381,
+    "best_val_f1": 0.3693917794295153,
+    "training_time": 1.09633207321167,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0050",
+    "classification_type": "4way",
+    "config_details": {
+      "config_id": "Config_0050",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "concatenate",
+      "bayesian_method": "lstm",
+      "context_turns": 1,
+      "architecture": "MLP",
+      "use_focal_loss": false,
+      "description": "simple_mean+concatenate+lstm+1turn+MLP+CE"
+    },
+    "test_accuracy": 0.3875,
+    "test_f1_weighted": 0.3931658044979961,
+    "test_f1_macro": 0.3711667525176408,
+    "best_val_f1": 0.3603222658732843,
+    "training_time": 0.994438886642456,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0001",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0001",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "lstm",
+      "context_turns": 1,
+      "architecture": "MLP",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+lstm+1turn+MLP+Focal"
+    },
+    "test_accuracy": 0.28,
+    "test_f1_weighted": 0.24512134564812985,
+    "test_f1_macro": 0.2294066646264615,
+    "best_val_f1": 0.21123456790123454,
+    "training_time": 1.1901240348815918,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0002",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0002",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "lstm",
+      "context_turns": 1,
+      "architecture": "MLP",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+lstm+1turn+MLP+CE"
+    },
+    "test_accuracy": 0.2725,
+    "test_f1_weighted": 0.23771537126057457,
+    "test_f1_macro": 0.23102520390195264,
+    "best_val_f1": 0.19032832310458725,
+    "training_time": 1.0416910648345947,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0003",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0003",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "lstm",
+      "context_turns": 1,
+      "architecture": "LSTM",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+lstm+1turn+LSTM+Focal"
+    },
+    "test_accuracy": 0.2775,
+    "test_f1_weighted": 0.2441381912144703,
+    "test_f1_macro": 0.23238498252013984,
+    "best_val_f1": 0.20886082807265074,
+    "training_time": 1.5121347904205322,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0004",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0004",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "lstm",
+      "context_turns": 1,
+      "architecture": "LSTM",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+lstm+1turn+LSTM+CE"
+    },
+    "test_accuracy": 0.2325,
+    "test_f1_weighted": 0.20279956144688058,
+    "test_f1_macro": 0.2058483571495317,
+    "best_val_f1": 0.19053267507729396,
+    "training_time": 1.7408580780029297,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0005",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0005",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "lstm",
+      "context_turns": 2,
+      "architecture": "MLP",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+lstm+2turn+MLP+Focal"
+    },
+    "test_accuracy": 0.2325,
+    "test_f1_weighted": 0.2047273525084737,
+    "test_f1_macro": 0.19583747992619807,
+    "best_val_f1": 0.2126531255130769,
+    "training_time": 0.9789702892303467,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0006",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0006",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "lstm",
+      "context_turns": 2,
+      "architecture": "MLP",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+lstm+2turn+MLP+CE"
+    },
+    "test_accuracy": 0.2425,
+    "test_f1_weighted": 0.2114879902578315,
+    "test_f1_macro": 0.2019496627316991,
+    "best_val_f1": 0.19701776158114184,
+    "training_time": 0.9942998886108398,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0007",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0007",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "lstm",
+      "context_turns": 2,
+      "architecture": "LSTM",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+lstm+2turn+LSTM+Focal"
+    },
+    "test_accuracy": 0.2125,
+    "test_f1_weighted": 0.18369738992088064,
+    "test_f1_macro": 0.18214826281389745,
+    "best_val_f1": 0.19577826142244595,
+    "training_time": 1.5886032581329346,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0008",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0008",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "lstm",
+      "context_turns": 2,
+      "architecture": "LSTM",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+lstm+2turn+LSTM+CE"
+    },
+    "test_accuracy": 0.265,
+    "test_f1_weighted": 0.23230521029050444,
+    "test_f1_macro": 0.2278367624691154,
+    "best_val_f1": 0.16948988833746897,
+    "training_time": 1.4458651542663574,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0009",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0009",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "lstm",
+      "context_turns": 3,
+      "architecture": "MLP",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+lstm+3turn+MLP+Focal"
+    },
+    "test_accuracy": 0.25,
+    "test_f1_weighted": 0.21559167815067248,
+    "test_f1_macro": 0.20162921188797833,
+    "best_val_f1": 0.1506001357726463,
+    "training_time": 1.0258369445800781,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0010",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0010",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "lstm",
+      "context_turns": 3,
+      "architecture": "MLP",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+lstm+3turn+MLP+CE"
+    },
+    "test_accuracy": 0.2375,
+    "test_f1_weighted": 0.20166115612359525,
+    "test_f1_macro": 0.18363063519038977,
+    "best_val_f1": 0.15241979805458936,
+    "training_time": 1.0987460613250732,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0011",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0011",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "lstm",
+      "context_turns": 3,
+      "architecture": "LSTM",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+lstm+3turn+LSTM+Focal"
+    },
+    "test_accuracy": 0.1925,
+    "test_f1_weighted": 0.16136120283784677,
+    "test_f1_macro": 0.15302499641665046,
+    "best_val_f1": 0.15129320166552565,
+    "training_time": 1.4889848232269287,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0012",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0012",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "lstm",
+      "context_turns": 3,
+      "architecture": "LSTM",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+lstm+3turn+LSTM+CE"
+    },
+    "test_accuracy": 0.2375,
+    "test_f1_weighted": 0.20600754090435372,
+    "test_f1_macro": 0.197545184005199,
+    "best_val_f1": 0.15924402698533863,
+    "training_time": 1.7096691131591797,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0013",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0013",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "lstm",
+      "context_turns": 4,
+      "architecture": "MLP",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+lstm+4turn+MLP+Focal"
+    },
+    "test_accuracy": 0.2525,
+    "test_f1_weighted": 0.21828714503042598,
+    "test_f1_macro": 0.208394185260311,
+    "best_val_f1": 0.17810752188681284,
+    "training_time": 1.003223180770874,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0014",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0014",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "lstm",
+      "context_turns": 4,
+      "architecture": "MLP",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+lstm+4turn+MLP+CE"
+    },
+    "test_accuracy": 0.245,
+    "test_f1_weighted": 0.21184642918679486,
+    "test_f1_macro": 0.20579057968650094,
+    "best_val_f1": 0.12863651022087969,
+    "training_time": 1.1557440757751465,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0015",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0015",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "lstm",
+      "context_turns": 4,
+      "architecture": "LSTM",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+lstm+4turn+LSTM+Focal"
+    },
+    "test_accuracy": 0.215,
+    "test_f1_weighted": 0.18617480665901645,
+    "test_f1_macro": 0.16982009289289648,
+    "best_val_f1": 0.160456076661123,
+    "training_time": 1.6149320602416992,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0016",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0016",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "lstm",
+      "context_turns": 4,
+      "architecture": "LSTM",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+lstm+4turn+LSTM+CE"
+    },
+    "test_accuracy": 0.215,
+    "test_f1_weighted": 0.1875840013990262,
+    "test_f1_macro": 0.17893652313061043,
+    "best_val_f1": 0.1681196227639817,
+    "training_time": 1.5709240436553955,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0017",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0017",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "transformer",
+      "context_turns": 1,
+      "architecture": "MLP",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+transformer+1turn+MLP+Focal"
+    },
+    "test_accuracy": 0.3075,
+    "test_f1_weighted": 0.26940111670582423,
+    "test_f1_macro": 0.26426563030097483,
+    "best_val_f1": 0.1774628549678507,
+    "training_time": 1.1852059364318848,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0018",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0018",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "transformer",
+      "context_turns": 1,
+      "architecture": "MLP",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+transformer+1turn+MLP+CE"
+    },
+    "test_accuracy": 0.315,
+    "test_f1_weighted": 0.26810487651146575,
+    "test_f1_macro": 0.256587965318084,
+    "best_val_f1": 0.196743083344861,
+    "training_time": 1.0269830226898193,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0019",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0019",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "transformer",
+      "context_turns": 1,
+      "architecture": "LSTM",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+transformer+1turn+LSTM+Focal"
+    },
+    "test_accuracy": 0.2425,
+    "test_f1_weighted": 0.2139025675370808,
+    "test_f1_macro": 0.20173227591335316,
+    "best_val_f1": 0.1906845931912889,
+    "training_time": 1.463301181793213,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0020",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0020",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "transformer",
+      "context_turns": 1,
+      "architecture": "LSTM",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+transformer+1turn+LSTM+CE"
+    },
+    "test_accuracy": 0.235,
+    "test_f1_weighted": 0.20586145077856607,
+    "test_f1_macro": 0.19867742487462653,
+    "best_val_f1": 0.22684767214828302,
+    "training_time": 1.6065731048583984,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0021",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0021",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "transformer",
+      "context_turns": 2,
+      "architecture": "MLP",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+transformer+2turn+MLP+Focal"
+    },
+    "test_accuracy": 0.26,
+    "test_f1_weighted": 0.22348777348777354,
+    "test_f1_macro": 0.22093522093522094,
+    "best_val_f1": 0.19369974544691124,
+    "training_time": 1.044835090637207,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0022",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0022",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "transformer",
+      "context_turns": 2,
+      "architecture": "MLP",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+transformer+2turn+MLP+CE"
+    },
+    "test_accuracy": 0.22,
+    "test_f1_weighted": 0.19075801907332235,
+    "test_f1_macro": 0.1802355990752677,
+    "best_val_f1": 0.18607651050294363,
+    "training_time": 1.0397207736968994,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0023",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0023",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "transformer",
+      "context_turns": 2,
+      "architecture": "LSTM",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+transformer+2turn+LSTM+Focal"
+    },
+    "test_accuracy": 0.2,
+    "test_f1_weighted": 0.17517007134290016,
+    "test_f1_macro": 0.17699688306092334,
+    "best_val_f1": 0.18985591113530223,
+    "training_time": 1.4661400318145752,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0024",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0024",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "transformer",
+      "context_turns": 2,
+      "architecture": "LSTM",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+transformer+2turn+LSTM+CE"
+    },
+    "test_accuracy": 0.205,
+    "test_f1_weighted": 0.181205261498996,
+    "test_f1_macro": 0.17725980412179743,
+    "best_val_f1": 0.13585461311239233,
+    "training_time": 1.4702908992767334,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0025",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0025",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "transformer",
+      "context_turns": 3,
+      "architecture": "MLP",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+transformer+3turn+MLP+Focal"
+    },
+    "test_accuracy": 0.225,
+    "test_f1_weighted": 0.18989576324832697,
+    "test_f1_macro": 0.1785076189184301,
+    "best_val_f1": 0.13746771738426922,
+    "training_time": 1.0387699604034424,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0026",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0026",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "transformer",
+      "context_turns": 3,
+      "architecture": "MLP",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+transformer+3turn+MLP+CE"
+    },
+    "test_accuracy": 0.24,
+    "test_f1_weighted": 0.20559255480191024,
+    "test_f1_macro": 0.19566895548102736,
+    "best_val_f1": 0.16917406436389854,
+    "training_time": 1.0058889389038086,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0027",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0027",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "transformer",
+      "context_turns": 3,
+      "architecture": "LSTM",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+transformer+3turn+LSTM+Focal"
+    },
+    "test_accuracy": 0.1825,
+    "test_f1_weighted": 0.1460733112256323,
+    "test_f1_macro": 0.14902829815789195,
+    "best_val_f1": 0.10834744118353484,
+    "training_time": 1.489426851272583,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0028",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0028",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "transformer",
+      "context_turns": 3,
+      "architecture": "LSTM",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+transformer+3turn+LSTM+CE"
+    },
+    "test_accuracy": 0.2,
+    "test_f1_weighted": 0.1762847033023351,
+    "test_f1_macro": 0.1678415059223664,
+    "best_val_f1": 0.15719620497225542,
+    "training_time": 1.7560970783233643,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0029",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0029",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "transformer",
+      "context_turns": 4,
+      "architecture": "MLP",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+transformer+4turn+MLP+Focal"
+    },
+    "test_accuracy": 0.2275,
+    "test_f1_weighted": 0.1926328456198309,
+    "test_f1_macro": 0.18765313017499916,
+    "best_val_f1": 0.19498627185253875,
+    "training_time": 1.0652761459350586,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0030",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0030",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "transformer",
+      "context_turns": 4,
+      "architecture": "MLP",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+transformer+4turn+MLP+CE"
+    },
+    "test_accuracy": 0.1925,
+    "test_f1_weighted": 0.16755795842389154,
+    "test_f1_macro": 0.15588969249584275,
+    "best_val_f1": 0.14603821182405255,
+    "training_time": 1.217879056930542,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0031",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0031",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "transformer",
+      "context_turns": 4,
+      "architecture": "LSTM",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+transformer+4turn+LSTM+Focal"
+    },
+    "test_accuracy": 0.195,
+    "test_f1_weighted": 0.1789358643854628,
+    "test_f1_macro": 0.16784395812520453,
+    "best_val_f1": 0.14353810171117865,
+    "training_time": 1.474661111831665,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0032",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0032",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "transformer",
+      "context_turns": 4,
+      "architecture": "LSTM",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+transformer+4turn+LSTM+CE"
+    },
+    "test_accuracy": 0.22,
+    "test_f1_weighted": 0.191966971943988,
+    "test_f1_macro": 0.17856319048150443,
+    "best_val_f1": 0.1655062321937322,
+    "training_time": 1.480983018875122,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0033",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0033",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "context_lstm",
+      "context_turns": 1,
+      "architecture": "MLP",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+context_lstm+1turn+MLP+Focal"
+    },
+    "test_accuracy": 0.2675,
+    "test_f1_weighted": 0.23009347153030973,
+    "test_f1_macro": 0.22873742823700832,
+    "best_val_f1": 0.19802175272317277,
+    "training_time": 1.0138769149780273,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0034",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0034",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "context_lstm",
+      "context_turns": 1,
+      "architecture": "MLP",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+context_lstm+1turn+MLP+CE"
+    },
+    "test_accuracy": 0.2575,
+    "test_f1_weighted": 0.22337543953817757,
+    "test_f1_macro": 0.21345270718117249,
+    "best_val_f1": 0.2217786068264537,
+    "training_time": 1.0575611591339111,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0035",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0035",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "context_lstm",
+      "context_turns": 1,
+      "architecture": "LSTM",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+context_lstm+1turn+LSTM+Focal"
+    },
+    "test_accuracy": 0.2825,
+    "test_f1_weighted": 0.24604980425272796,
+    "test_f1_macro": 0.2496688032478332,
+    "best_val_f1": 0.21800099874661996,
+    "training_time": 1.4778120517730713,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0036",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0036",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "context_lstm",
+      "context_turns": 1,
+      "architecture": "LSTM",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+context_lstm+1turn+LSTM+CE"
+    },
+    "test_accuracy": 0.2475,
+    "test_f1_weighted": 0.21942773145148878,
+    "test_f1_macro": 0.21658762604858411,
+    "best_val_f1": 0.20628986106109887,
+    "training_time": 1.595093011856079,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0037",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0037",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "context_lstm",
+      "context_turns": 2,
+      "architecture": "MLP",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+context_lstm+2turn+MLP+Focal"
+    },
+    "test_accuracy": 0.2275,
+    "test_f1_weighted": 0.1969779420022098,
+    "test_f1_macro": 0.1839744787987466,
+    "best_val_f1": 0.158075935828877,
+    "training_time": 1.012955904006958,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0038",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0038",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "context_lstm",
+      "context_turns": 2,
+      "architecture": "MLP",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+context_lstm+2turn+MLP+CE"
+    },
+    "test_accuracy": 0.255,
+    "test_f1_weighted": 0.21461044025438647,
+    "test_f1_macro": 0.19742521467767654,
+    "best_val_f1": 0.13510988004190227,
+    "training_time": 0.9136080741882324,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0039",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0039",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "context_lstm",
+      "context_turns": 2,
+      "architecture": "LSTM",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+context_lstm+2turn+LSTM+Focal"
+    },
+    "test_accuracy": 0.225,
+    "test_f1_weighted": 0.18246811797055698,
+    "test_f1_macro": 0.17953153260470334,
+    "best_val_f1": 0.17202311270670914,
+    "training_time": 1.479863166809082,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0040",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0040",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "context_lstm",
+      "context_turns": 2,
+      "architecture": "LSTM",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+context_lstm+2turn+LSTM+CE"
+    },
+    "test_accuracy": 0.2225,
+    "test_f1_weighted": 0.19221607860268186,
+    "test_f1_macro": 0.1805245557219617,
+    "best_val_f1": 0.1998549549125696,
+    "training_time": 1.5752649307250977,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0041",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0041",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "context_lstm",
+      "context_turns": 3,
+      "architecture": "MLP",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+context_lstm+3turn+MLP+Focal"
+    },
+    "test_accuracy": 0.2425,
+    "test_f1_weighted": 0.2068024296675192,
+    "test_f1_macro": 0.2021994884910486,
+    "best_val_f1": 0.16055236925805602,
+    "training_time": 1.1023731231689453,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0042",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0042",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "context_lstm",
+      "context_turns": 3,
+      "architecture": "MLP",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+context_lstm+3turn+MLP+CE"
+    },
+    "test_accuracy": 0.23,
+    "test_f1_weighted": 0.19865579811763176,
+    "test_f1_macro": 0.18290910409118402,
+    "best_val_f1": 0.15682227847961291,
+    "training_time": 1.1170940399169922,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0043",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0043",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "context_lstm",
+      "context_turns": 3,
+      "architecture": "LSTM",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+context_lstm+3turn+LSTM+Focal"
+    },
+    "test_accuracy": 0.195,
+    "test_f1_weighted": 0.1656929430083529,
+    "test_f1_macro": 0.1537029714472094,
+    "best_val_f1": 0.18335036225872461,
+    "training_time": 1.606226921081543,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0044",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0044",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "context_lstm",
+      "context_turns": 3,
+      "architecture": "LSTM",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+context_lstm+3turn+LSTM+CE"
+    },
+    "test_accuracy": 0.23,
+    "test_f1_weighted": 0.19898344988344988,
+    "test_f1_macro": 0.19873193473193473,
+    "best_val_f1": 0.14873583075710733,
+    "training_time": 1.7006559371948242,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0045",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0045",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "context_lstm",
+      "context_turns": 4,
+      "architecture": "MLP",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+context_lstm+4turn+MLP+Focal"
+    },
+    "test_accuracy": 0.265,
+    "test_f1_weighted": 0.22699953882068694,
+    "test_f1_macro": 0.2229274674764136,
+    "best_val_f1": 0.15203183707131077,
+    "training_time": 1.0921111106872559,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0046",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0046",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "context_lstm",
+      "context_turns": 4,
+      "architecture": "MLP",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+context_lstm+4turn+MLP+CE"
+    },
+    "test_accuracy": 0.235,
+    "test_f1_weighted": 0.20157497932374333,
+    "test_f1_macro": 0.1900395744641251,
+    "best_val_f1": 0.13651106194690266,
+    "training_time": 1.0699520111083984,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0047",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0047",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "context_lstm",
+      "context_turns": 4,
+      "architecture": "LSTM",
+      "use_focal_loss": true,
+      "description": "simple_mean+sum+context_lstm+4turn+LSTM+Focal"
+    },
+    "test_accuracy": 0.2525,
+    "test_f1_weighted": 0.21480846735901665,
+    "test_f1_macro": 0.20505932493051332,
+    "best_val_f1": 0.12550382307737182,
+    "training_time": 1.5407938957214355,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0048",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0048",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "sum",
+      "bayesian_method": "context_lstm",
+      "context_turns": 4,
+      "architecture": "LSTM",
+      "use_focal_loss": false,
+      "description": "simple_mean+sum+context_lstm+4turn+LSTM+CE"
+    },
+    "test_accuracy": 0.2125,
+    "test_f1_weighted": 0.17975323162961826,
+    "test_f1_macro": 0.18414992836511845,
+    "best_val_f1": 0.14006860971882895,
+    "training_time": 1.6663100719451904,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0049",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0049",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "concatenate",
+      "bayesian_method": "lstm",
+      "context_turns": 1,
+      "architecture": "MLP",
+      "use_focal_loss": true,
+      "description": "simple_mean+concatenate+lstm+1turn+MLP+Focal"
+    },
+    "test_accuracy": 0.275,
+    "test_f1_weighted": 0.24289172892697125,
+    "test_f1_macro": 0.22685649432030805,
+    "best_val_f1": 0.22377447914750642,
+    "training_time": 1.2897310256958008,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  },
+  {
+    "config_id": "Config_0050",
+    "classification_type": "6way",
+    "config_details": {
+      "config_id": "Config_0050",
+      "apply_word_pe": true,
+      "apply_sentence_pe": true,
+      "pooling_method": "simple_mean",
+      "combination_method": "concatenate",
+      "bayesian_method": "lstm",
+      "context_turns": 1,
+      "architecture": "MLP",
+      "use_focal_loss": false,
+      "description": "simple_mean+concatenate+lstm+1turn+MLP+CE"
+    },
+    "test_accuracy": 0.2575,
+    "test_f1_weighted": 0.22222753209393495,
+    "test_f1_macro": 0.2122084758325919,
+    "best_val_f1": 0.20014319290934768,
+    "training_time": 2.404982566833496,
+    "sample_sizes": {
+      "train": 800,
+      "val": 300,
+      "test": 400
+    }
+  }
+]

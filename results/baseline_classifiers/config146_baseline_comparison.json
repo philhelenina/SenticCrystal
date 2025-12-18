@@ -1,0 +1,99 @@
+{
+  "mlp": {
+    "config_id": 146,
+    "model_type": "mlp",
+    "model_params": {
+      "input_size": 768,
+      "hidden_size": 256,
+      "num_classes": 4
+    },
+    "training_config": {
+      "learning_rate": 0.0001,
+      "batch_size": 32,
+      "num_epochs": 1,
+      "weight_decay": 1.7083020624786403e-05,
+      "early_stopping_patience": 1,
+      "device": "cpu",
+      "dropout_rate": 0.7129363737801503
+    },
+    "training_history": {
+      "train_losses": [
+        1.381900661131915
+      ],
+      "val_losses": [
+        1.3693800984006939
+      ],
+      "val_accuracies": [
+        0.27643064985451016
+      ],
+      "best_val_acc": 0.27643064985451016,
+      "final_epoch": 1
+    },
+    "test_results": {
+      "accuracy": 0.36019339242546333,
+      "macro_f1": 0.22443859561698215,
+      "weighted_f1": 0.2652019386289695,
+      "macro_precision": 0.49935589016166626,
+      "macro_recall": 0.29747412186028255,
+      "weighted_precision": 0.5228878307600733,
+      "weighted_recall": 0.36019339242546333,
+      "per_class_precision": [
+        0.5,
+        0.7671232876712328,
+        0.3303002729754322,
+        0.4
+      ],
+      "per_class_recall": [
+        0.011764705882352941,
+        0.12669683257918551,
+        0.9453125,
+        0.10612244897959183
+      ],
+      "per_class_f1": [
+        0.022988505747126436,
+        0.2174757281553398,
+        0.48954821308159135,
+        0.16774193548387098
+      ],
+      "support": [
+        170,
+        442,
+        384,
+        245
+      ],
+      "confusion_matrix": [
+        [
+          2,
+          2,
+          154,
+          12
+        ],
+        [
+          1,
+          56,
+          371,
+          14
+        ],
+        [
+          0,
+          8,
+          363,
+          13
+        ],
+        [
+          1,
+          7,
+          211,
+          26
+        ]
+      ],
+      "classification_report": "              precision    recall  f1-score   support\n\n         ang     0.5000    0.0118    0.0230       170\n         hap     0.7671    0.1267    0.2175       442\n         neu     0.3303    0.9453    0.4895       384\n         sad     0.4000    0.1061    0.1677       245\n\n    accuracy                         0.3602      1241\n   macro avg     0.4994    0.2975    0.2244      1241\nweighted avg     0.5229    0.3602    0.2652      1241\n",
+      "class_names": [
+        "ang",
+        "hap",
+        "neu",
+        "sad"
+      ]
+    }
+  }
+}
