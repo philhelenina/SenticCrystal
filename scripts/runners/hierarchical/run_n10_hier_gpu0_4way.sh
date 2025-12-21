@@ -14,9 +14,9 @@ TRAIN_SCRIPT="${PROJECT_ROOT}/scripts/trainers/hierarchical/train_npz_hier_class
 # CONFIGURATION
 # ============================================================================
 TASK="4way"
-ENCODER="sentence-roberta-hier"
-LAYERS=("avg_last4" "last")
-POOLS=("mean" "wmean_pos_rev")
+ENCODER="opensmile_sroberta/alpha_fusion/030"
+LAYERS=("avg_last4")
+POOLS=("wmean_pos_rev")
 SEEDS=(42 43 44 45 46 47 48 49 50 51)  # n=10!
 
 # Hyperparameters
@@ -32,7 +32,7 @@ DECAY_LAMBDA=0.5
 # ============================================================================
 # PATHS (EDIT THESE)
 # ============================================================================
-BASE_DIR="/home/jovyan/workspace/SenticCrystal/saturn_cloud_deployment"
+BASE_DIR="/home/jovyan/workspace/SenticCrystal"
 EMB_BASE="${BASE_DIR}/data/embeddings/${TASK}"
 RESULTS_BASE="${BASE_DIR}/results_n10/${TASK}/hierarchical"
 
