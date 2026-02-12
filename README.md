@@ -1,237 +1,121 @@
-# 🔮 SenticCrystal
+# SenticCrystal
 
-**Advanced Conversational Emotion Recognition System**
+**State-of-the-art Emotion Recognition in Conversation with Linguistic Analysis**
 
-SenticCrystal is a state-of-the-art emotion recognition system that achieved **72.1% Macro-F1** on IEMOCAP 4-way classification through innovative Config146 architecture and Bayesian uncertainty quantification.
+Achieving **82.69% (4-way)** and **67.07% (6-way)** weighted F1 on IEMOCAP using strictly causal context (text-only).
 
-## 🎯 **Key Achievements**
+## Highlights
 
-- **Best Macro-F1**: 71.91% (99.9% of 72% target)
-- **Best Accuracy**: 72.04% 
-- **Best Weighted-F1**: 72.36%
-- **Breakthrough**: Focal Loss recovery from 30.9% → 69.94%
-- **Innovation**: Bayesian uncertainty quantification + K-turn context modeling
+- **SOTA Performance**: Outperforms bidirectional models using only causal (past) context
+- **Statistical Rigor**: 10 random seeds, paired t-tests, Bonferroni correction
+- **Linguistic Analysis**: Emotion-specific discourse marker positioning patterns (exploratory)
 
-## 🏗️ **Architecture Overview**
+## Key Findings
 
-```
-SenticCrystal Pipeline
-├── Feature Extraction
-│   ├── Sentence-RoBERTa (768-dim contextual embeddings)
-│   └── WordNet-Affect (300-dim emotion embeddings)
-├── Config146 Optimal Combination
-│   ├── Method: "sum" (S-RoBERTa + α*WordNet-Affect) 
-│   └── Pooling: "weighted_mean"
-├── Context Modeling
-│   ├── K-turn Context Windows (dynamic K based on dialogue)
-│   ├── Forward-only processing (no future leakage)
-│   └── Dialogue boundary awareness
-└── Classification
-    ├── MLP Classifier (768 → 256 → 128 → 4)
-    ├── Focal Loss (α=1.0, γ=1.2) for class imbalance
-    └── Bayesian uncertainty quantification
-```
+| Finding | Effect | p-value | Status |
+|---------|--------|---------|--------|
+| Context is crucial | **+22%** F1 | <10⁻¹⁵ | Confirmed |
+| Hierarchical helps (utterance-only) | +1.9% | 0.007 | Confirmed |
+| Context subsumes hierarchy | - | 0.43 | Confirmed |
+| SenticNet doesn't help | 0% | - | Negative |
+| Discourse marker patterns | Exploratory | 0.01* | Exploratory |
 
-## 🚀 **Quick Start**
+## Performance Comparison
 
-### **Installation**
+| Method | 4-way | 6-way | Context Type |
+|--------|-------|-------|--------------|
+| HCAM (2023) | 81.4% | 64.4% | Bidirectional |
+| Mai et al. (2019) | 81.5% | - | Intra-utterance |
+| **Ours** | **82.69%** | **67.07%** | **Causal** |
+
+*Using strictly causal context (no future utterances) - applicable to real-time systems*
+
+## Method
+
+- **Encoder**: Sentence-RoBERTa (nli-roberta-base-v2)
+- **Context**: K-turn sliding window (K=0~200)
+- **Pooling**: Layer averaging (avg_last4) + mean pooling
+- **Classifier**: LSTM with Bayesian hyperparameter optimization (Optuna)
+
+## Installation
+
 ```bash
-# Clone repository
-git clone <repository-url>
-cd SenticCrystal
+conda env create -f environment.yml
+conda activate senticcrystal
+```
 
-# Install dependencies (local development)
+Or with pip:
+```bash
 pip install -r requirements.txt
-
-# OR for Saturn Cloud A100
-conda env create -f docs/setup/environment_saturn_cloud.yml
 ```
 
-### **Basic Usage**
-```python
-from src.data_preprocessing.config146_generator import Config146EmbeddingGenerator
-
-# Initialize generator
-generator = Config146EmbeddingGenerator(device='cuda')
-
-# Generate embeddings with K-turn context
-embeddings = generator.generate_embeddings(
-    texts=your_texts,
-    ids=your_ids, 
-    context_turns=6,  # Default K value
-    dialogue_ids=your_dialogue_ids  # For boundary awareness
-)
-
-# Multi-K efficient generation
-multi_k_embeddings = generator.generate_multiple_k_embeddings(
-    texts, ids, k_values=[0, 2, 4, 6]
-)
-```
-
-### **Run Complete Experiment**
-```bash
-# Generate Config146 embeddings for all K values
-python scripts/embeddings.py
-
-# Run comprehensive turn analysis experiments  
-python run_comprehensive_experiments.py
-```
-
-## 📊 **System Performance**
-
-### **IEMOCAP 4-way Classification Results**
-| Metric | Config146 | Best Bayesian | Target |
-|--------|-----------|---------------|---------|
-| Macro-F1 | **71.91%** | 71.5% | 72.0% |
-| Accuracy | **72.04%** | 71.8% | 72.0% | 
-| Weighted-F1 | **72.36%** | 72.1% | 72.0% |
-
-### **Platform Performance**
-| Platform | Training Time | Batch Size | Speed vs M4 |
-|----------|--------------|------------|-------------|
-| MacBook M4 | 6-8 hours | 16-32 | 1x (baseline) |
-| Saturn Cloud A100 | 1.5-2 hours | 128-256 | **4-5x faster** |
-
-## 🧠 **Key Innovations**
-
-### **1. Config146 Optimal Architecture** 
-```python
-config146_settings = {
-    'apply_word_pe': False,
-    'pooling_method': 'weighted_mean', 
-    'apply_sentence_pe': False,
-    'combination_method': 'sum',
-    'bayesian_method': 'context_lstm'
-}
-```
-
-### **2. Dynamic K-turn Context Modeling**
-- **K=0**: Current utterance only
-- **K=2,4,6**: Fixed baselines  
-- **Cumulative**: Dynamic K based on dialogue position
-- **Quantile**: Adaptive K based on conversation length
-
-### **3. Bayesian Uncertainty Quantification**
-```python
-from src.data_preprocessing.bayesian_config146_generator import BayesianConfig146EmbeddingGenerator
-
-# Generate with uncertainty
-embeddings, uncertainty_info = bayesian_gen.generate_embeddings(
-    texts, ids, return_uncertainty=True
-)
-
-# Confidence-based filtering
-high_conf, low_conf, uncertainty = bayesian_gen.generate_with_confidence_filtering(
-    texts, ids, confidence_threshold=0.8
-)
-```
-
-### **4. Information Theory Optimization**
-- **KL Divergence**: Bayesian weight regularization
-- **Entropy-based**: Uncertainty quantification  
-- **Mutual Information**: Future enhancement opportunity
-
-## 📂 **Project Structure**
+## Project Structure
 
 ```
 SenticCrystal/
-├── 📄 README.md                    # This file
-├── 📄 QUICK_START.md              # Detailed setup guide
-├── 📄 CHANGELOG.md                # Version history
+├── src/                          # Core modules
+│   ├── models/                   # Model definitions
+│   ├── features/                 # Feature extraction (S-RoBERTa)
+│   └── utils/                    # Utilities
 │
-├── 🎯 run_comprehensive_experiments.py  # Main experiment pipeline
-├── ⚙️  config_generator.py             # Configuration generator
+├── scripts/
+│   ├── statistical_analysis/     # Statistical tests (6 scripts)
+│   ├── turn/                     # Turn-level training
+│   ├── trainer/                  # Utterance-level training
+│   └── generator/                # Embedding generation
 │
-├── 📁 src/                        # Core source code
-│   ├── data_preprocessing/        # Embedding generators (refactored)
-│   ├── models/                   # Bayesian neural networks
-│   ├── features/                 # S-RoBERTa + WordNet-Affect  
-│   └── utils/                    # Utilities (focal loss, preprocessing)
+├── results/
+│   ├── STATISTICAL_ANALYSIS_SUMMARY.md
+│   └── discourse_markers/        # DM position data
 │
-├── 📁 scripts/                   # Execution scripts
-│   ├── embeddings.py            # Embedding generation
-│   └── wn-affect-1.0/           # WordNet-Affect data
-│
-├── 📁 docs/                     # Documentation
-│   ├── experiments/             # Experiment plans & results
-│   ├── analysis/                # Code & data analysis
-│   └── setup/                   # Environment setup
-│
-├── 📁 data/                     # IEMOCAP datasets
-└── 📁 backup/                   # Archived/duplicate files
+└── data/                         # IEMOCAP (not included)
 ```
 
-## 🔬 **Research Applications**
+## Usage
 
-### **Emotion Recognition**
-- **Conversational AI**: Context-aware emotion understanding
-- **Mental Health**: Depression/anxiety detection
-- **Customer Service**: Sentiment analysis with confidence
+### Run Statistical Analysis
 
-### **Bayesian Machine Learning** 
-- **Uncertainty Quantification**: Model confidence estimation
-- **Active Learning**: Sample selection for annotation
-- **Quality Control**: Automatic human review flagging
-
-### **Information Theory**
-- **Context Optimization**: Dynamic window size selection
-- **Feature Fusion**: Optimal modality combination
-- **Attention Mechanisms**: Information-theoretic weighting
-
-## 🛠️ **Development Setup**
-
-### **Local Development (MacBook M4)**
 ```bash
-# Recommended for development and small experiments
-python -m venv senticcrystal
-source senticcrystal/bin/activate
-pip install -r requirements.txt
+python scripts/statistical_analysis/run_all.py
 ```
 
-### **High-Performance Training (Saturn Cloud A100)**
+### Train Turn-level Model
+
 ```bash
-# For full-scale experiments and production training
-conda env create -f docs/setup/environment_saturn_cloud.yml
-conda activate senticcrystal-saturn
+python scripts/turn/train_turnlevel_k_sweep_bayesian.py \
+    --task 4way \
+    --encoder sentence-roberta \
+    --seed 42
 ```
 
-See [`docs/setup/saturn_cloud_setup.md`](docs/setup/saturn_cloud_setup.md) for detailed setup instructions.
+### Generate Embeddings
 
-## 📖 **Documentation**
+```bash
+python scripts/generator/generate_sroberta_npz_4way.py
+python scripts/generator/generate_sroberta_hier_npz_4way.py
+```
 
-### **Experiments & Results**
-- [📊 Experimental Plan](docs/experiments/EXPERIMENTAL_PLAN.md)
-- [📈 Results Summary](docs/experiments/EXPERIMENTAL_RESULTS_SUMMARY.md)  
-- [🔄 Turn Analysis Plan](docs/experiments/COMPREHENSIVE_TURN_ANALYSIS_PLAN.md)
+## Roadmap
 
-### **Technical Analysis**
-- [🔍 Codebase Analysis](docs/analysis/COMPREHENSIVE_CODEBASE_ANALYSIS.md)
-- [📊 Data Structure Analysis](docs/analysis/IEMOCAP_4WAY_DATA_ANALYSIS.md)
-- [🔧 Refactoring Report](docs/analysis/REFACTORING_COMPLETE.md)
+- [x] Text-only baseline (current)
+- [ ] Multimodal integration (audio features)
+- [ ] Real-time inference pipeline
 
-### **Setup & Configuration**
-- [☁️ Saturn Cloud Setup](docs/setup/saturn_cloud_setup.md)
-- [🐍 Environment Configuration](docs/setup/environment_saturn_cloud.yml)
+## Citation
 
-## 🤝 **Contributing**
+```bibtex
+@article{senticcrystal2024,
+  title={Understanding Emotion in Discourse: From Recognition to Generation-Informed Insights},
+  author={Anonymous},
+  journal={TACL (under review)},
+  year={2024}
+}
+```
 
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open Pull Request
+## License
 
-## 📄 **License**
+MIT License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## Contact
 
-## 🙏 **Acknowledgments**
-
-- **IEMOCAP**: Interactive Emotional Dyadic Motion Capture Database
-- **Hugging Face**: Transformers and Sentence-Transformers libraries
-- **WordNet-Affect**: Emotion lexicon resource
-- **Saturn Cloud**: High-performance computing platform
-
----
-
-**🔮 SenticCrystal - Where Emotion Recognition Meets Bayesian Precision**
+Questions: cheonkamjeong@gmail.com
