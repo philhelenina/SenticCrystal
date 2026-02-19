@@ -213,3 +213,9 @@ __marimo__/
 *.npz
 *.pkl
 *.pickle
+
+.env
+meld_fusion
+*.json
+local_lib/
+meld_env/
