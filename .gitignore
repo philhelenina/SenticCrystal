@@ -212,3 +212,11 @@ data/embeddings/
 # macOS
 __MACOSX/
 .DS_Store
+
+# Large model files (exceed GitHub 100MB limit)
+*.h5
+*.pth
+*.npy
+*.npz
+*.pkl
+*.pickle

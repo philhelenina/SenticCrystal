@@ -1,0 +1,8 @@
+{
+  "id": 146,
+  "apply_word_pe": false,
+  "pooling_method": "weighted_mean",
+  "apply_sentence_pe": false,
+  "combination_method": "sum",
+  "bayesian_method": "context_lstm"
+}
