@@ -1,1 +1,0 @@
-python3 -m pip install --target=./local_lib -r requirements.txt
