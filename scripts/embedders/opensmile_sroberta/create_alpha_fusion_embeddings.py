@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 """
-create_alpha_fusion_embeddings.py
 Generate α-weighted fusion embeddings for IEMOCAP 4-way
 h_fused = (1-α) * H_norm + α * W_proj @ S_norm
-Output: data/embeddings/4way/opensmile_sroberta/alpha_fusion/{005,010,020,030}/{last,avg_last4}/wmean_pos_rev/{split}.npz
+Output: data/embeddings/4way/opensmile_sroberta/alpha_fusion/{000,005,010,020,...}/avg_last4/wmean_pos_rev/{split}.npz
+Run: python3 scripts/embedders/opensmile_sroberta/create_alpha_fusion_embeddings.py
+
 """
 import numpy as np
 from pathlib import Path
 
-HOME = Path("/home/jovyan/workspace/SenticCrystal/")
+HOME = Path("./")
 
 def l2_normalize(x, axis=-1, eps=1e-12):
     """L2 normalization"""
@@ -47,7 +48,8 @@ def main():
     TASK = "4way"
     LAYERS = ["avg_last4"]
     POOL = "wmean_pos_rev"
-    ALPHAS = [0.05, 0.10, 0.20, 0.30]
+    # ALPHAS = [0, 0.05, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 1]
+    ALPHAS = [0, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 1]
     SPLITS = ["train", "val", "test"]
     
     print(f"\nConfig:")
@@ -66,15 +68,16 @@ def main():
         print(f"Layer: {LAYER}")
         print(f"{'='*70}")
         
-        roberta_base = HOME / "data/embeddings" / TASK / "sroberta" / LAYER / POOL
-        opensmile_base = HOME / "data/embeddings" / TASK / "opensmile/eGeMAPSv02"
+        embeddings_base = HOME / "data/embeddings" / TASK
+        roberta_base = embeddings_base / "sroberta" / LAYER / POOL
+        opensmile_base = embeddings_base / "opensmile/eGeMAPSv02"
         
         print(f"  SRoBERTa: {roberta_base}")
         print(f"  openSMILE: {opensmile_base}")
         
         for alpha in ALPHAS:
             alpha_tag = f"{int(alpha*100):03d}"
-            out_base = HOME / "data/embeddings" / TASK / "opensmile_sroberta/alpha_fusion" / alpha_tag / LAYER / POOL
+            out_base = embeddings_base/ "opensmile_sroberta/alpha_fusion" / alpha_tag / LAYER / POOL
             out_base.mkdir(parents=True, exist_ok=True)
             
             print(f"\n  α={alpha:.2f} (tag={alpha_tag})")
@@ -82,7 +85,7 @@ def main():
             for split in SPLITS:
                 # Load
                 H = np.load(roberta_base / f"{split}_filtered.npz")["embeddings"].astype(np.float32)
-                S = np.load(opensmile_base / f"{split}_filtered.npy").astype(np.float32)
+                S = np.load(opensmile_base / f"{split}_unified_filtered.npy").astype(np.float32)
                 S = np.squeeze(S, axis=1)
                 
                 # Align
