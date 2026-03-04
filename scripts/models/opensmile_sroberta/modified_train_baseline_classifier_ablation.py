@@ -31,7 +31,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 # Data directory for CSV label files (unchanged)
-HOME_DIR = Path("/home/jovyan/workspace/SenticCrystal")
+HOME_DIR = Path("./")
 DATA_DIR = HOME_DIR / 'data' / 'iemocap_4way_data'
 
 # Expected embedding dimension for opensmile-sroberta
