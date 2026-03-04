@@ -48,8 +48,7 @@ def main():
     TASK = "4way"
     LAYERS = ["avg_last4"]
     POOL = "wmean_pos_rev"
-    # ALPHAS = [0, 0.05, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 1]
-    ALPHAS = [0, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 1]
+    ALPHAS = [0, 0.05, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 1]
     SPLITS = ["train", "val", "test"]
     
     print(f"\nConfig:")
@@ -85,7 +84,7 @@ def main():
             for split in SPLITS:
                 # Load
                 H = np.load(roberta_base / f"{split}_filtered.npz")["embeddings"].astype(np.float32)
-                S = np.load(opensmile_base / f"{split}_unified_filtered.npy").astype(np.float32)
+                S = np.load(opensmile_base / f"{split}_filtered.npy").astype(np.float32)
                 S = np.squeeze(S, axis=1)
                 
                 # Align
@@ -105,14 +104,15 @@ def main():
     print("="*70)
     print("\nOutput structure:")
     print("  data/embeddings/4way/opensmile_sroberta/alpha_fusion/")
-    print("    ├── 005/")
+    print("    ├── 000/")
     print("    │   └── avg_last4/wmean_pos_rev/{train,val,test}.npz")
     print("    ├── 010/")
     print("    │   └── avg_last4/wmean_pos_rev/{train,val,test}.npz")
     print("    ├── 020/")
     print("    │   └── avg_last4/wmean_pos_rev/{train,val,test}.npz")
-    print("    └── 030/")
-    print("        └── avg_last4/wmean_pos_rev/{train,val,test}.npz")
+    print("    ├── 030/")
+    print("    │   └── avg_last4/wmean_pos_rev/{train,val,test}.npz")
+    print("    └── ...")
 
 if __name__ == "__main__":
     main()
