@@ -5,12 +5,7 @@ Gated Fusion Model for Multimodal Emotion Recognition
 - Gating: learnable gate(s) to fuse modalities
 
 Example usage:
-python3 scripts/models/opensmile_sroberta/gated_fusion.py \
-    --gate_type mlp \
-    --hidden_dim 256 \
-    --batch_size 32 \
-    --epochs 50 \
-    --lr 1e-3
+python3 scripts/models/opensmile_sroberta/gated_fusion.py
 
 """
 
@@ -18,15 +13,19 @@ import argparse
 from pathlib import Path
 from typing import Dict, Tuple, Optional
 
+import json
+
 import numpy as np
+import pandas as pd
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import Dataset, DataLoader
+from sklearn.metrics import confusion_matrix, f1_score, accuracy_score
 
 
 class GatedFusionDataset(Dataset):
-    """Load paired text and audio embeddings."""
+    """Load paired text and audio embeddings with labels from CSV."""
     
     def __init__(
         self,
@@ -38,36 +37,86 @@ class GatedFusionDataset(Dataset):
         Args:
             text_path: NPZ file with keys 'embeddings' (N, S_max, 768), 'lengths' (N,)
             audio_path: NPY file (N, 88)
-            labels_path: Optional NPY file with labels (N,)
+            labels_path: Optional CSV file with a 'label_num' column containing integer labels
 
         """
         # Load text embeddings
         text_data = np.load(text_path, allow_pickle=True)
-        self.text_embeddings = text_data['embeddings'].astype(np.float32)  # (N, S_max, 768)
-        self.text_lengths = text_data['lengths'].astype(np.int32)  # (N,)
+        embeddings_data = text_data['embeddings']
+        lengths_data = text_data['lengths']
+        
+        # Convert to proper numpy arrays to avoid numpy/torch compatibility issues
+        if isinstance(embeddings_data, np.ndarray) and embeddings_data.dtype == object:
+            # If object array, stack the elements
+            self.text_embeddings = np.stack([np.asarray(x, dtype=np.float32) for x in embeddings_data])
+        else:
+            self.text_embeddings = np.asarray(embeddings_data, dtype=np.float32)
+        
+        self.text_lengths = np.asarray(lengths_data, dtype=np.int32)
+        
         self.N = self.text_embeddings.shape[0]
-        self.S_max = self.text_embeddings.shape[1]
-        self.text_dim = self.text_embeddings.shape[2]
+        self.S_max = self.text_embeddings.shape[1] if self.text_embeddings.ndim > 1 else 1
+        self.text_dim = self.text_embeddings.shape[2] if self.text_embeddings.ndim > 2 else self.text_embeddings.shape[1]
         
         # Load audio embeddings
-        self.audio_embeddings = np.load(audio_path).astype(np.float32)  # (N, 88)
+        self.audio_embeddings = np.load(audio_path).astype(np.float32)
+        # Handle potential shape issues (could be (N, 88), (N, 1, 88), or (88, N), etc.)
+        if self.audio_embeddings.ndim == 1:
+            # If 1D, assume it's (88,) for a single sample - reshape to (1, 88)
+            self.audio_embeddings = self.audio_embeddings.reshape(1, -1)
+        if self.audio_embeddings.ndim == 3:
+            # If 3D, squeeze middle dimensions
+            self.audio_embeddings = self.audio_embeddings.reshape(self.audio_embeddings.shape[0], -1)
+        
+        # Transpose if N != first dim
+        if self.audio_embeddings.shape[0] != self.N:
+            if self.audio_embeddings.shape[1] == self.N:
+                self.audio_embeddings = self.audio_embeddings.T
+        
         assert self.audio_embeddings.shape[0] == self.N, \
-            f"Mismatch: text N={self.N}, audio N={self.audio_embeddings.shape[0]}"
+            f"Mismatch: text N={self.N}, audio N={self.audio_embeddings.shape[0]}, audio shape={self.audio_embeddings.shape}"
         self.audio_dim = self.audio_embeddings.shape[1]
         
-        # Load labels if provided
+        # Load labels from CSV if provided
         self.labels = None
         if labels_path and Path(labels_path).exists():
-            self.labels = np.load(labels_path).astype(np.int64)
-            assert self.labels.shape[0] == self.N
+            df = pd.read_csv(labels_path)
+            # Use 'label_num' column if available, otherwise map 'label' column
+            if 'label_num' in df.columns:
+                labels_raw = df['label_num'].astype(np.int64).values
+            elif 'label' in df.columns:
+                # Map string labels to integers
+                label_map = {'angry': 0, 'happy': 1, 'sad': 2, 'neutral': 3}
+                labels_raw = df['label'].map(label_map).astype(np.int64).values
+            else:
+                raise ValueError("CSV must contain 'label_num' or 'label' column")
+            
+            # Filter out invalid labels (-1 means not in valid emotion class)
+            valid_mask = labels_raw >= 0
+            
+            # Apply mask to filter embeddings, lengths, and labels
+            self.text_embeddings = self.text_embeddings[valid_mask]
+            self.text_lengths = self.text_lengths[valid_mask]
+            self.audio_embeddings = self.audio_embeddings[valid_mask]
+            self.labels = labels_raw[valid_mask]
+            
+            # Update N after filtering
+            self.N = len(self.labels)
+            
+            print(f"    Filtered from {len(labels_raw)} to {self.N} samples (removed {(~valid_mask).sum()} invalid labels)")
     
     def __len__(self):
         return self.N
     
     def __getitem__(self, idx):
-        text_emb = torch.from_numpy(self.text_embeddings[idx])  # (S_max, 768)
+        # Convert to tensor directly from list to avoid numpy 2.x compatibility issues
+        text_emb_np = self.text_embeddings[idx]  # (S_max, 768)
+        text_emb = torch.tensor(text_emb_np, dtype=torch.float32)
+        
         text_len = torch.tensor(self.text_lengths[idx], dtype=torch.long)
-        audio_emb = torch.from_numpy(self.audio_embeddings[idx])  # (88,)
+        
+        audio_emb_np = self.audio_embeddings[idx]  # (88,)
+        audio_emb = torch.tensor(audio_emb_np, dtype=torch.float32)
         
         item = {
             'text': text_emb,
@@ -272,12 +321,15 @@ def train_epoch(model, loader, optimizer, criterion, device):
 
 
 @torch.no_grad()
-def evaluate(model, loader, criterion, device):
+def evaluate(model, loader, criterion, device, return_predictions=False):
     """Evaluate on a dataset."""
     model.eval()
     total_loss = 0.0
     total_acc = 0
     total_samples = 0
+    
+    all_preds = [] if return_predictions else None
+    all_labels = [] if return_predictions else None
     
     for batch in loader:
         text = batch['text'].to(device)
@@ -292,10 +344,16 @@ def evaluate(model, loader, criterion, device):
         preds = logits.argmax(dim=1)
         total_acc += (preds == labels).sum().item()
         total_samples += labels.shape[0]
+        
+        if return_predictions:
+            all_preds.extend(preds.cpu().numpy())
+            all_labels.extend(labels.cpu().numpy())
     
     avg_loss = total_loss / total_samples
     avg_acc = total_acc / total_samples
     
+    if return_predictions:
+        return avg_loss, avg_acc, np.array(all_preds), np.array(all_labels)
     return avg_loss, avg_acc
 
 
@@ -354,19 +412,23 @@ def main():
     print("[LOAD] Train split...")
     train_dataset = GatedFusionDataset(
         text_dir / "train_filtered.npz",
-        audio_dir / "train_unified_filtered.npy"
+        audio_dir / "train_unified_filtered.npy",
+        labels_path=args.labels_dir / "train_unified_filtered.csv"
     )
+    print(f"  Text shape: {train_dataset.text_embeddings.shape}, Audio shape: {train_dataset.audio_embeddings.shape}, Audio dim: {train_dataset.audio_dim}")
     
     print("[LOAD] Val split...")
     val_dataset = GatedFusionDataset(
         text_dir / "val_filtered.npz",
-        audio_dir / "val_unified_filtered.npy"
+        audio_dir / "val_unified_filtered.npy",
+        labels_path=args.labels_dir / "val_unified_filtered.csv"
     )
     
     print("[LOAD] Test split...")
     test_dataset = GatedFusionDataset(
         text_dir / "test_filtered.npz",
-        audio_dir / "test_unified_filtered.npy"
+        audio_dir / "test_unified_filtered.npy",
+        labels_path=args.labels_dir / "test_unified_filtered.csv"
     )
     
     # Create dataloaders
@@ -428,8 +490,38 @@ def main():
     # Test evaluation
     print("\n[TEST] Evaluating best model...")
     model.load_state_dict(torch.load(best_model_path))
-    test_loss, test_acc = evaluate(model, test_loader, criterion, device)
+    test_loss, test_acc, test_preds, test_labels = evaluate(
+        model, test_loader, criterion, device, return_predictions=True
+    )
     print(f"Test Loss: {test_loss:.4f}, Acc: {test_acc:.4f}")
+    
+    # Calculate metrics
+    test_f1 = f1_score(test_labels, test_preds, average='weighted')
+    test_cm = confusion_matrix(test_labels, test_preds)
+    
+    print(f"Test Weighted F1: {test_f1:.4f}")
+    print(f"\nConfusion Matrix:")
+    print(test_cm)
+    
+    # Create results directory
+    results_dir = Path("results/4way/opensmile-sroberta/gated_fusion")
+    results_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Save results to files
+    results = {
+        "accuracy": float(test_acc),
+        "weighted_f1": float(test_f1),
+        "loss": float(test_loss)
+    }
+    
+    with open(results_dir / "metrics.json", "w") as f:
+        json.dump(results, f, indent=2)
+    
+    np.savetxt(results_dir / "confusion_matrix.csv", test_cm, delimiter=",", fmt="%d")
+    
+    print(f"\n[SAVE] Results saved to {results_dir}")
+    print(f"  - metrics.json")
+    print(f"  - confusion_matrix.csv")
 
 
 if __name__ == "__main__":
