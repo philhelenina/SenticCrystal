@@ -13,3 +13,4 @@
 | Alpha Fusion ($\alpha$ = 0.80) | LSTM | 0.627 | 0.627 | [link](https://github.com/philhelenina/SenticCrystal/blob/audrey/results/4way/opensmile-sroberta/alpha_fusion/080/opensmile-sroberta_lstm-opensmile-sroberta_confusion_matrix.png) |
 | Alpha Fusion ($\alpha$ = 0.90) | LSTM | 0.621 | 0.624 | [link](https://github.com/philhelenina/SenticCrystal/blob/audrey/results/4way/opensmile-sroberta/alpha_fusion/090/opensmile-sroberta_lstm-opensmile-sroberta_confusion_matrix.png) |
 | Alpha Fusion ($\alpha$ = 1) | LSTM | 0.379 | 0.417 | [link](https://github.com/philhelenina/SenticCrystal/blob/audrey/results/4way/opensmile-sroberta/alpha_fusion/100/opensmile-sroberta_lstm-opensmile-sroberta_confusion_matrix.png) |
+| Gated Fusion | MLP | 0.682 | 0.683 | [link](https://github.com/philhelenina/SenticCrystal/blob/audrey/results/4way/opensmile-sroberta/gated_fusion/confusion_matrix.csv) |
