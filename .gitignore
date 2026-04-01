@@ -214,8 +214,13 @@ __marimo__/
 *.pkl
 *.pickle
 
+# various large files and installers from Jessica
 .env
 meld_fusion
 *.json
 local_lib/
 meld_env/
+*.tar.gz
+/google-cloud-sdk
+
+JessicaNotes.txt
