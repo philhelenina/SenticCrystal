@@ -1,1 +1,6 @@
 python3 -m pip install --target=./local_lib -r requirements.txt
+
+PYTHONPATH=./local_lib python3 scripts/MELD/check_meld_content.py
+
+
+gcp_meld_reader -cheonkam's api key for streaming data
