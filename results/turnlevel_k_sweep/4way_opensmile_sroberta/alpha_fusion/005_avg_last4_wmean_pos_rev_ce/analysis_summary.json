@@ -1,0 +1,95 @@
+{
+  "config": {
+    "task": "4way",
+    "model_tag": "opensmile_sroberta/alpha_fusion/005",
+    "layer": "avg_last4",
+    "pool": "wmean_pos_rev",
+    "models": [
+      "lstm"
+    ],
+    "k_min": 0,
+    "k_max": 30,
+    "k_step": 5,
+    "loss": "ce",
+    "focal_gamma": 2.0,
+    "poly_epsilon": 1.0,
+    "label_smoothing": 0.0,
+    "class_weight": "",
+    "epochs": 50,
+    "hidden": 192,
+    "dropout": 0.7,
+    "lr": 0.0002,
+    "bs": 256,
+    "patience": 10,
+    "use_bayesopt": false,
+    "bayesopt_dir": "",
+    "gpu": 0,
+    "seeds": 1,
+    "wandb_project": ""
+  },
+  "timestamp": "2026-04-01T13:38:36.707176",
+  "total_experiments": 7,
+  "emotions": [
+    "ang",
+    "hap",
+    "sad",
+    "neu"
+  ],
+  "loss_function": "ce",
+  "class_weight_strategy": "none",
+  "bayesian_optimization_used": false,
+  "optimal_k_per_emotion": {
+    "ang": 0,
+    "hap": 10,
+    "sad": 0,
+    "neu": 30
+  },
+  "best_performance_per_emotion": {
+    "ang": {
+      "k": 0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "hap": {
+      "k": 10,
+      "recall": 0.6822429906542056,
+      "f1": 0.6064382139148494
+    },
+    "sad": {
+      "k": 0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "neu": {
+      "k": 30,
+      "recall": 1.0,
+      "f1": 0.47571606475716066
+    }
+  },
+  "saturation_params": {
+    "ang": {
+      "baseline": 1e-10,
+      "a_max": 1e-10,
+      "tau": 10.0,
+      "asymptotic": 2e-10
+    },
+    "hap": {
+      "baseline": 0.36849132176802707,
+      "a_max": 5.061678280930937e-14,
+      "tau": 199.99995731316844,
+      "asymptotic": 0.3684913217680777
+    },
+    "sad": {
+      "baseline": 1e-10,
+      "a_max": 1e-10,
+      "tau": 10.0,
+      "asymptotic": 2e-10
+    },
+    "neu": {
+      "baseline": 0.7283318797452102,
+      "a_max": 0.999999992248639,
+      "tau": 130.95440787120464,
+      "asymptotic": 1.7283318719938492
+    }
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "config": {
+    "task": "4way",
+    "model_tag": "opensmile_sroberta/alpha_fusion/005",
+    "layer": "avg_last4",
+    "pool": "wmean_pos_rev",
+    "models": [
+      "lstm"
+    ],
+    "k_min": 0,
+    "k_max": 100,
+    "k_step": 5,
+    "loss": "poly",
+    "focal_gamma": 2.0,
+    "poly_epsilon": 1.0,
+    "label_smoothing": 0.0,
+    "class_weight": "effective",
+    "epochs": 50,
+    "hidden": 192,
+    "dropout": 0.7,
+    "lr": 0.0002,
+    "bs": 256,
+    "patience": 10,
+    "use_bayesopt": false,
+    "bayesopt_dir": "",
+    "gpu": 0,
+    "seeds": 1,
+    "wandb_project": ""
+  },
+  "timestamp": "2026-04-01T14:18:22.883540",
+  "total_experiments": 21,
+  "emotions": [
+    "ang",
+    "hap",
+    "sad",
+    "neu"
+  ],
+  "loss_function": "poly",
+  "class_weight_strategy": "effective",
+  "bayesian_optimization_used": false,
+  "optimal_k_per_emotion": {
+    "ang": 0,
+    "hap": 30,
+    "sad": 75,
+    "neu": 15
+  },
+  "best_performance_per_emotion": {
+    "ang": {
+      "k": 0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "hap": {
+      "k": 30,
+      "recall": 0.9392523364485982,
+      "f1": 0.5606694560669456
+    },
+    "sad": {
+      "k": 75,
+      "recall": 0.3306122448979592,
+      "f1": 0.329938900203666
+    },
+    "neu": {
+      "k": 15,
+      "recall": 1.0,
+      "f1": 0.47542003733665217
+    }
+  },
+  "saturation_params": {
+    "ang": {
+      "baseline": 1e-10,
+      "a_max": 1e-10,
+      "tau": 10.0,
+      "asymptotic": 2e-10
+    },
+    "hap": {
+      "baseline": 0.5139074293586181,
+      "a_max": 4.08066773868108e-13,
+      "tau": 8.774722664575972,
+      "asymptotic": 0.5139074293590262
+    },
+    "sad": {
+      "baseline": 5.829626058308166e-12,
+      "a_max": 0.21230645606982845,
+      "tau": 199.99999999995674,
+      "asymptotic": 0.21230645607565807
+    },
+    "neu": {
+      "baseline": 0.6147803324041318,
+      "a_max": 0.08699148473891047,
+      "tau": 33.75595073705122,
+      "asymptotic": 0.7017718171430423
+    }
+  }
+}
