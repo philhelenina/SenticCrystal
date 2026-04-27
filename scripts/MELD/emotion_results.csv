@@ -1,0 +1,157 @@
+Dialogue_ID,Utterance_ID,Speaker,Original_Emotion,Predicted_Emotion,Context_Used
+"(0,)",0,Chandler,neutral,Neutral,
+"(0,)",1,The Interviewer,neutral,Neutral,Chandler: also I was the point person on my companys transition from the KL-5 to GR-6 system.
+"(0,)",2,Chandler,neutral,Neutral,"Chandler: also I was the point person on my companys transition from the KL-5 to GR-6 system.
+The Interviewer: You mustve had your hands full."
+"(0,)",3,The Interviewer,neutral,Neutral,"Chandler: also I was the point person on my companys transition from the KL-5 to GR-6 system.
+The Interviewer: You mustve had your hands full.
+Chandler: That I did. That I did."
+"(0,)",4,Chandler,surprise,Neutral,"The Interviewer: You mustve had your hands full.
+Chandler: That I did. That I did.
+The Interviewer: So lets talk a little bit about your duties."
+"(0,)",5,The Interviewer,neutral,Neutral,"Chandler: That I did. That I did.
+The Interviewer: So lets talk a little bit about your duties.
+Chandler: My duties?  All right."
+"(0,)",6,Chandler,neutral,Neutral,"The Interviewer: So lets talk a little bit about your duties.
+Chandler: My duties?  All right.
+The Interviewer: Now youll be heading a whole division, so youll have a lot of duties."
+"(0,)",7,The Interviewer,neutral,Neutral,"Chandler: My duties?  All right.
+The Interviewer: Now youll be heading a whole division, so youll have a lot of duties.
+Chandler: I see."
+"(0,)",8,Chandler,neutral,Neutral,"The Interviewer: Now youll be heading a whole division, so youll have a lot of duties.
+Chandler: I see.
+The Interviewer: But therell be perhaps 30 people under you so you can dump a certain amount on them."
+"(0,)",9,The Interviewer,neutral,Neutral,"Chandler: I see.
+The Interviewer: But therell be perhaps 30 people under you so you can dump a certain amount on them.
+Chandler: Good to know."
+"(0,)",10,Chandler,fear,Fear,"The Interviewer: But therell be perhaps 30 people under you so you can dump a certain amount on them.
+Chandler: Good to know.
+The Interviewer: We can go into detail"
+"(0,)",11,The Interviewer,neutral,Neutral,"Chandler: Good to know.
+The Interviewer: We can go into detail
+Chandler: No dont I beg of you!"
+"(0,)",12,Chandler,surprise,Surprise,"The Interviewer: We can go into detail
+Chandler: No dont I beg of you!
+The Interviewer: All right then, well have a definite answer for you on Monday, but I think I can say with some confidence, youll fit in well here."
+"(0,)",13,The Interviewer,neutral,Neutral,"Chandler: No dont I beg of you!
+The Interviewer: All right then, well have a definite answer for you on Monday, but I think I can say with some confidence, youll fit in well here.
+Chandler: Really?!"
+"(1,)",0,Joey,surprise,Neutral,
+"(1,)",1,Rachel,sadness,Anger,Joey: But then who? The waitress I went out with last month?
+"(1,)",2,Joey,surprise,Surprise,"Joey: But then who? The waitress I went out with last month?
+Rachel: You know? Forget it!"
+"(1,)",3,Rachel,fear,Surprise,"Joey: But then who? The waitress I went out with last month?
+Rachel: You know? Forget it!
+Joey: No-no-no-no, no! Who, who were you talking about?"
+"(1,)",4,Joey,neutral,Neutral,"Rachel: You know? Forget it!
+Joey: No-no-no-no, no! Who, who were you talking about?
+Rachel: No, I-I-I-I don't, I actually don't know"
+"(1,)",5,Joey,neutral,Neutral,"Joey: No-no-no-no, no! Who, who were you talking about?
+Rachel: No, I-I-I-I don't, I actually don't know
+Joey: Ok!"
+"(1,)",8,Rachel,neutral,Neutral,"Rachel: No, I-I-I-I don't, I actually don't know
+Joey: Ok!
+Joey: All right, well..."
+"(2,)",0,Chandler,neutral,Neutral,
+"(2,)",1,Monica,neutral,Anger,"Chandler: Hey, Mon."
+"(2,)",2,Chandler,joy,Sadness,"Chandler: Hey, Mon.
+Monica: Hey-hey-hey. You wanna hear something that sucks."
+"(2,)",3,Monica,sadness,Sadness,"Chandler: Hey, Mon.
+Monica: Hey-hey-hey. You wanna hear something that sucks.
+Chandler: Do I ever."
+"(2,)",4,Chandler,surprise,Surprise,"Monica: Hey-hey-hey. You wanna hear something that sucks.
+Chandler: Do I ever.
+Monica: Chris says theyre closing down the bar."
+"(2,)",5,Monica,neutral,Neutral,"Chandler: Do I ever.
+Monica: Chris says theyre closing down the bar.
+Chandler: No way!"
+"(2,)",6,Chandler,disgust,Surprise,"Monica: Chris says theyre closing down the bar.
+Chandler: No way!
+Monica: Yeah, apparently theyre turning it into some kinda coffee place."
+"(2,)",7,Monica,sadness,Sadness,"Chandler: No way!
+Monica: Yeah, apparently theyre turning it into some kinda coffee place.
+Chandler: Just coffee! Where are we gonna hang out now?"
+"(2,)",8,Chandler,neutral,Anger,"Monica: Yeah, apparently theyre turning it into some kinda coffee place.
+Chandler: Just coffee! Where are we gonna hang out now?
+Monica: Got me."
+"(2,)",9,Monica,neutral,Neutral,"Chandler: Just coffee! Where are we gonna hang out now?
+Monica: Got me.
+Chandler: Can I get a beer."
+"(2,)",10,Chandler,joy,Joy,"Monica: Got me.
+Chandler: Can I get a beer.
+Monica: Hey, did you pick a roommate?"
+"(2,)",11,Monica,neutral,Neutral,"Chandler: Can I get a beer.
+Monica: Hey, did you pick a roommate?
+Chandler: You betcha!"
+"(2,)",12,Chandler,joy,Surprise,"Monica: Hey, did you pick a roommate?
+Chandler: You betcha!
+Monica: Is it the Italian guy?"
+"(3,)",0,Phoebe,surprise,Sadness,
+"(3,)",1,Chandler,surprise,Surprise,"Phoebe: Oh my God, oh my God! Poor Monica!"
+"(3,)",2,Phoebe,surprise,Surprise,"Phoebe: Oh my God, oh my God! Poor Monica!
+Chandler: What, what, what?!"
+"(3,)",3,Phoebe,neutral,Surprise,"Phoebe: Oh my God, oh my God! Poor Monica!
+Chandler: What, what, what?!
+Phoebe: What?!"
+"(3,)",4,Phoebe,neutral,Sadness,"Chandler: What, what, what?!
+Phoebe: What?!
+Phoebe: He was with her when he wrote this poem."
+"(3,)",5,Phoebe,neutral,Sadness,"Phoebe: What?!
+Phoebe: He was with her when he wrote this poem.
+Phoebe: Look,  'My vessel so empty with nothing inside."
+"(3,)",6,Phoebe,surprise,Anger,"Phoebe: He was with her when he wrote this poem.
+Phoebe: Look,  'My vessel so empty with nothing inside.
+Phoebe: Now that I've touched you, you seem emptier still.'"
+"(3,)",8,Phoebe,sadness,Sadness,"Phoebe: Look,  'My vessel so empty with nothing inside.
+Phoebe: Now that I've touched you, you seem emptier still.'
+Phoebe: He thinks Monica is empty, she is the empty vase!"
+"(3,)",9,Joey,neutral,Neutral,"Phoebe: Now that I've touched you, you seem emptier still.'
+Phoebe: He thinks Monica is empty, she is the empty vase!
+Phoebe: Oh, totally. Oh, God, oh, she seemed so happy too."
+"(4,)",0,Rachel,surprise,Neutral,
+"(4,)",1,Ross,joy,Neutral,Rachel: Hey!
+"(4,)",2,Rachel,surprise,Surprise,"Rachel: Hey!
+Ross: Hi!"
+"(4,)",3,Ross,neutral,Joy,"Rachel: Hey!
+Ross: Hi!
+Rachel: What are you doing here?"
+"(4,)",4,Rachel,neutral,Anger,"Ross: Hi!
+Rachel: What are you doing here?
+Ross: Ah y'know, this building is on my paper route so I..."
+"(4,)",5,Ross,neutral,Neutral,"Rachel: What are you doing here?
+Ross: Ah y'know, this building is on my paper route so I...
+Rachel: Oh."
+"(4,)",6,Rachel,neutral,Neutral,"Ross: Ah y'know, this building is on my paper route so I...
+Rachel: Oh.
+Ross: Hi."
+"(4,)",7,Ross,neutral,Neutral,"Rachel: Oh.
+Ross: Hi.
+Rachel: Hi."
+"(4,)",8,Rachel,joy,Joy,"Ross: Hi.
+Rachel: Hi.
+Ross: Howd did it go?"
+"(4,)",9,Ross,joy,Joy,"Rachel: Hi.
+Ross: Howd did it go?
+Rachel: Oh well, the woman I interviewed with was pretty tough, but y'know thank God Mark coached me, because once I started talking about the fall line, she got all happy and wouldnt shut up."
+"(4,)",10,Rachel,joy,Joy,"Ross: Howd did it go?
+Rachel: Oh well, the woman I interviewed with was pretty tough, but y'know thank God Mark coached me, because once I started talking about the fall line, she got all happy and wouldnt shut up.
+Ross: Im so proud of you."
+"(4,)",11,Ross,sadness,Sadness,"Rachel: Oh well, the woman I interviewed with was pretty tough, but y'know thank God Mark coached me, because once I started talking about the fall line, she got all happy and wouldnt shut up.
+Ross: Im so proud of you.
+Rachel: Me too!"
+"(4,)",12,Rachel,neutral,Joy,"Ross: Im so proud of you.
+Rachel: Me too!
+Ross: Listen, Im ah, Im sorry Ive been so crazy and jealous and, its just that I like you a lot, so..."
+"(4,)",13,Ross,neutral,Sadness,"Rachel: Me too!
+Ross: Listen, Im ah, Im sorry Ive been so crazy and jealous and, its just that I like you a lot, so...
+Rachel: I know."
+"(4,)",14,Rachel,neutral,Neutral,"Ross: Listen, Im ah, Im sorry Ive been so crazy and jealous and, its just that I like you a lot, so...
+Rachel: I know.
+Ross: Yeah."
+"(5,)",0,Phoebe,neutral,Surprise,
+"(5,)",1,Joey,neutral,Surprise,Phoebe: Ameri-can.
+"(5,)",2,Phoebe,neutral,Neutral,"Phoebe: Ameri-can.
+Joey: Ameri-ccan."
+"(5,)",3,Sergei,surprise,Anger,"Phoebe: Ameri-can.
+Joey: Ameri-ccan.
+Phoebe: Ameri-can. Y'know its a"
