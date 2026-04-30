@@ -10,6 +10,9 @@ import subprocess
 from pathlib import Path
 import os
 
+
+# does the actual extraction of audio features and maps to dialogue id
+
 client = storage.Client(project="gen-lang-client-0105254213")
 bucket = client.bucket("meld")
 smile = opensmile.Smile(
