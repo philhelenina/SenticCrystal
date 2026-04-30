@@ -13,24 +13,31 @@ import os
 
 # does the actual extraction of audio features and maps to dialogue id
 
+# configuring/initializing the connection to GCP and opensmile setup
+
 client = storage.Client(project="gen-lang-client-0105254213")
 bucket = client.bucket("meld")
 smile = opensmile.Smile(
     feature_set=opensmile.FeatureSet.eGeMAPSv02,
     feature_level=opensmile.FeatureLevel.Functionals,
 )
+
 def process_blob(blob):
     audio_bytes = blob.download_as_bytes(timeout=30)
     
+    # tmp files for media conversion
     tmp_mp4 = tempfile.NamedTemporaryFile(suffix=".mp4", delete=False)
     tmp_wav = tempfile.NamedTemporaryFile(suffix=".wav", delete=False)
     
     try:
+        # converting each file to a suitable format,
+        # input convert to 16kHz mono audio and save as tmp wav/mp4 files file
         tmp_mp4.write(audio_bytes)
         tmp_mp4.flush()
         tmp_mp4.close()
         tmp_wav.close()
-        
+
+        # using ffmpeg to transform the audio file so openSMILE can analyze
         result = subprocess.run(
             ["ffmpeg", "-y", "-i", tmp_mp4.name,
              "-ar", "16000", "-ac", "1", tmp_wav.name],
@@ -44,7 +51,7 @@ def process_blob(blob):
     finally:
         os.unlink(tmp_mp4.name)
         os.unlink(tmp_wav.name)
-    
+    # extraction and conversion to a dictionary to be appended to csv later
     feats = smile.process_signal(audio, sr)
     row = feats.iloc[0].to_dict()
     row["filename"] = Path(blob.name).stem
@@ -65,6 +72,7 @@ if os.path.exists(csv_path):
 
 records = []
 for split_name, prefix in splits.items():
+    # lists files in specific folder
     blobs = list(bucket.list_blobs(prefix=prefix))
     for blob in tqdm(blobs, desc=split_name):
         if blob.name.endswith((".wav", ".mp4")):
