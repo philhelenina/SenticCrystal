@@ -148,11 +148,9 @@ def remove_speaker_outliers(df, column, sd_threshold=3):
         mean = speaker_data[column].mean()
         std = speaker_data[column].std()
         
-        # Define the "Safe Zone"
         lower_bound = mean - (sd_threshold * std)
         upper_bound = mean + (sd_threshold * std)
         
-        # Keep only the data within the safe zone
         filtered_data = speaker_data[
             (speaker_data[column] >= lower_bound) & 
             (speaker_data[column] <= upper_bound)
@@ -227,11 +225,10 @@ def main():
         print("Average Pitch (Mean) by Speaker:")
         print("-" * 30)
         
-        # Original Data (Will show a large gap)
+
         print("BEFORE (27.5Hz Ref):")
         print(comparison_df.groupby('Speaker')[f0_orig].mean())
         
-        # Normalized Data (Will show both near 0)
         print("\nAFTER (Speaker-Specific Ref):")
         print(comparison_df.groupby('Speaker')[f0_norm].mean())
         
@@ -248,18 +245,16 @@ def main():
 
     from scipy import stats
 
-    # Pick two emotions to compare
     emotion_a = 'joy'
     emotion_b = 'sadness'
 
-    # Filter the dataframe for these emotions
-    # (Ensure your 'Emotion' column name matches your merged CSV)
+  
     df_a = df[df['Emotion'] == emotion_a]
     df_b = df[df['Emotion'] == emotion_b]
 
     if not df_a.empty and not df_b.empty:
         # Test the Normalized Pitch
-        f0_norm_col = 'F0semitone_speakerNorm' # or whatever your column name is
+        f0_norm_col = 'F0semitone_speakerNorm' 
         
         if f0_norm_col in df.columns:
             group_a = df_a[f0_norm_col].dropna()
@@ -280,9 +275,9 @@ def main():
             print(f"  Effect Size (Cohen's d): {d:.3f}")
     else:
         print(f"Could not find enough data for {emotion_a} and {emotion_b} to perform tests.")
+
     print("\n--- Speaker Bias Check (Ross vs. Phoebe) ---")
 
-    # Use the same logic used in the main part of the script
     f0_orig = 'F0semitoneFrom27.5Hz_sma3nz_amean'
     f0_norm_col = f0_orig.replace('From27.5Hz', '_speakerNorm')
 
