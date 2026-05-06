@@ -48,14 +48,14 @@ def speaker_normalize_f0(df, f0_columns):
     df = df.copy()
 
     # Get speaker identifier (file_id contains speaker info)
-    speakers = df['file_id'].unique()
+    speakers = df['Speaker'].unique()
     print(f"Normalizing F0 for {len(speakers)} speakers...")
 
     # Store speaker mean F0 for reference
     speaker_mean_f0 = {}
 
     for speaker in speakers:
-        speaker_mask = df['file_id'] == speaker
+        speaker_mask = df['Speaker'] == speaker
         speaker_data = df.loc[speaker_mask]
 
         # Use the mean F0 column (amean) to get speaker's average pitch
@@ -78,7 +78,7 @@ def speaker_normalize_f0(df, f0_columns):
         df[new_col] = np.nan
 
         for speaker in speakers:
-            speaker_mask = df['file_id'] == speaker
+            speaker_mask = df['Speaker'] == speaker
 
             if speaker not in speaker_mean_f0:
                 continue
@@ -108,7 +108,7 @@ def speaker_zscore_normalize(df, columns):
     Formula: z = (x - speaker_mean) / speaker_std
     """
     df = df.copy()
-    speakers = df['file_id'].unique()
+    speakers = df['Speaker'].unique()
 
     for col in columns:
         if col not in df.columns:
@@ -118,7 +118,7 @@ def speaker_zscore_normalize(df, columns):
         df[new_col] = np.nan
 
         for speaker in speakers:
-            speaker_mask = df['file_id'] == speaker
+            speaker_mask = df['Speaker'] == speaker
             speaker_vals = df.loc[speaker_mask, col]
 
             mean_val = speaker_vals.mean()
@@ -134,8 +134,8 @@ def speaker_zscore_normalize(df, columns):
 
 def main():
     # Paths
-    base_dir = Path('/Users/helenjeong/Projects/DementiaBank-HeaLING/emotion-analysis-test/segments_adress')
-    features_path = base_dir / 'features' / 'egemaps_features.csv'
+    base_dir = Path('/home/liaojd/SenticCrystal/scripts/MELD/opensmile')
+    features_path = base_dir / 'meld_egemaps_raw.csv'
 
     # Load features
     print("Loading features...")
@@ -180,58 +180,87 @@ def main():
 
     # Compare before/after normalization
     print("\n" + "="*60)
-    print("Comparison: Before vs After Normalization (PAR only)")
+    print("Comparison: Before vs After Normalization")
     print("="*60)
 
-    par_df = df[df['speaker'] == 'PAR']
+    test_speakers = ['Ross', 'Phoebe', "Joey", "Rachel", "Chandler"]
+    comparison_df = df[df['Speaker'].isin(test_speakers)]
 
-    # F0 comparison
-    print("\n--- F0 (mean pitch) ---")
-    print("Before (27.5Hz reference):")
-    for group in ['control', 'ad']:
-        vals = par_df[par_df['group'] == group]['F0semitoneFrom27.5Hz_sma3nz_amean']
-        print(f"  {group}: {vals.mean():.2f} ± {vals.std():.2f}")
+    if not comparison_df.empty:
+        f0_orig = 'F0semitoneFrom27.5Hz_sma3nz_amean'
+        f0_norm = f0_orig.replace('From27.5Hz', '_speakerNorm')
 
-    print("\nAfter (speaker-specific reference):")
-    norm_col = 'F0semitoneFrom27.5Hz_sma3nz_amean'.replace('From27.5Hz', '_speakerNorm')
-    if norm_col in par_df.columns:
-        for group in ['control', 'ad']:
-            vals = par_df[par_df['group'] == group][norm_col].dropna()
-            print(f"  {group}: {vals.mean():.2f} ± {vals.std():.2f}")
+        print("Average Pitch (Mean) by Speaker:")
+        print("-" * 30)
+        
+        # Original Data (Will show a large gap)
+        print("BEFORE (27.5Hz Ref):")
+        print(comparison_df.groupby('Speaker')[f0_orig].mean())
+        
+        # Normalized Data (Will show both near 0)
+        print("\nAFTER (Speaker-Specific Ref):")
+        print(comparison_df.groupby('Speaker')[f0_norm].mean())
+        
+        print("-" * 30)
+        print("Note: In the 'AFTER' section, both should be extremely close to 0.00,")
+        print("indicating that the baseline pitch difference has been removed.")
+    else:
+        print(f"Speakers {test_speakers} not found in the current dataset slice.")
 
-    # Statistical test after normalization
+    # --- 7. Statistical Tests (Emotion Analysis) ---
+    print("\n" + "="*60)
+    print("STATISTICAL TESTS: JOY vs. SADNESS")
+    print("="*60)
+
     from scipy import stats
 
-    print("\n--- Statistical Tests (After Normalization) ---")
+    # Pick two emotions to compare
+    emotion_a = 'joy'
+    emotion_b = 'sadness'
 
-    # F0 normalized
-    f0_norm_col = 'F0semitoneFrom27.5Hz_sma3nz_amean'.replace('From27.5Hz', '_speakerNorm')
-    if f0_norm_col in par_df.columns:
-        control = par_df[par_df['group'] == 'control'][f0_norm_col].dropna()
-        ad = par_df[par_df['group'] == 'ad'][f0_norm_col].dropna()
-        t, p = stats.ttest_ind(control, ad)
-        pooled_std = np.sqrt(((len(control)-1)*control.std()**2 + (len(ad)-1)*ad.std()**2) / (len(control)+len(ad)-2))
-        d = (control.mean() - ad.mean()) / pooled_std if pooled_std > 0 else 0
-        sig = '***' if p < 0.001 else '**' if p < 0.01 else '*' if p < 0.05 else ''
-        print(f"\nF0 (speaker-normalized):")
-        print(f"  Control: {control.mean():.3f} ± {control.std():.3f}")
-        print(f"  AD: {ad.mean():.3f} ± {ad.std():.3f}")
-        print(f"  t={t:.3f}, p={p:.4f} {sig}, d={d:.3f}")
+    # Filter the dataframe for these emotions
+    # (Ensure your 'Emotion' column name matches your merged CSV)
+    df_a = df[df['Emotion'] == emotion_a]
+    df_b = df[df['Emotion'] == emotion_b]
 
-    # Other z-scored features
-    for feat in other_features:
-        z_col = feat + '_speakerZ'
-        if z_col in par_df.columns:
-            control = par_df[par_df['group'] == 'control'][z_col].dropna()
-            ad = par_df[par_df['group'] == 'ad'][z_col].dropna()
-            t, p = stats.ttest_ind(control, ad)
-            pooled_std = np.sqrt(((len(control)-1)*control.std()**2 + (len(ad)-1)*ad.std()**2) / (len(control)+len(ad)-2))
-            d = (control.mean() - ad.mean()) / pooled_std if pooled_std > 0 else 0
+    if not df_a.empty and not df_b.empty:
+        # Test the Normalized Pitch
+        f0_norm_col = 'F0semitone_speakerNorm' # or whatever your column name is
+        
+        if f0_norm_col in df.columns:
+            group_a = df_a[f0_norm_col].dropna()
+            group_b = df_b[f0_norm_col].dropna()
+            
+            t, p = stats.ttest_ind(group_a, group_b)
+            
+            # Calculate Effect Size (Cohen's d)
+            pooled_std = np.sqrt(((len(group_a)-1)*group_a.std()**2 + (len(group_b)-1)*group_b.std()**2) / (len(group_a)+len(group_b)-2))
+            d = (group_a.mean() - group_b.mean()) / pooled_std if pooled_std > 0 else 0
+            
             sig = '***' if p < 0.001 else '**' if p < 0.01 else '*' if p < 0.05 else ''
-            print(f"\n{feat} (z-scored):")
-            print(f"  Control: {control.mean():.3f} ± {control.std():.3f}")
-            print(f"  AD: {ad.mean():.3f} ± {ad.std():.3f}")
-            print(f"  t={t:.3f}, p={p:.4f} {sig}, d={d:.3f}")
+            
+            print(f"\nFeature: {f0_norm_col}")
+            print(f"  {emotion_a.capitalize()}: {group_a.mean():.3f} ± {group_a.std():.3f}")
+            print(f"  {emotion_b.capitalize()}: {group_b.mean():.3f} ± {group_b.std():.3f}")
+            print(f"  t-stat: {t:.3f}, p-value: {p:.4f} {sig}")
+            print(f"  Effect Size (Cohen's d): {d:.3f}")
+    else:
+        print(f"Could not find enough data for {emotion_a} and {emotion_b} to perform tests.")
+    print("\n--- Speaker Bias Check (Ross vs. Phoebe) ---")
+
+    # Use the same logic used in the main part of the script
+    f0_orig = 'F0semitoneFrom27.5Hz_sma3nz_amean'
+    f0_norm_col = f0_orig.replace('From27.5Hz', '_speakerNorm')
+
+    # Verify the column exists before calling it
+    if f0_norm_col in df.columns:
+        ross_pitch = df[df['Speaker'] == 'Ross'][f0_norm_col].dropna()
+        phoebe_pitch = df[df['Speaker'] == 'Phoebe'][f0_norm_col].dropna()
+        
+        t_stat, p_val = stats.ttest_ind(ross_pitch, phoebe_pitch)
+        print(f"Post-Normalization Pitch Difference: t={t_stat:.3f}, p={p_val:.4f}")
+    else:
+        print(f"Error: Could not find column {f0_norm_col}. Check column names in df.columns.")
 
     return df
 
