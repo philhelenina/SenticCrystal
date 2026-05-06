@@ -131,6 +131,36 @@ def speaker_zscore_normalize(df, columns):
 
     return df
 
+def remove_speaker_outliers(df, column, sd_threshold=3):
+    """
+    Removes rows where the specified column value is more than 
+    SD_threshold standard deviations from the speaker's mean.
+    """
+    df_clean = pd.DataFrame()
+    speakers = df['Speaker'].unique()
+    
+    initial_count = len(df)
+    
+    for speaker in speakers:
+        speaker_mask = df['Speaker'] == speaker
+        speaker_data = df[speaker_mask].copy()
+        
+        mean = speaker_data[column].mean()
+        std = speaker_data[column].std()
+        
+        # Define the "Safe Zone"
+        lower_bound = mean - (sd_threshold * std)
+        upper_bound = mean + (sd_threshold * std)
+        
+        # Keep only the data within the safe zone
+        filtered_data = speaker_data[
+            (speaker_data[column] >= lower_bound) & 
+            (speaker_data[column] <= upper_bound)
+        ]
+        df_clean = pd.concat([df_clean, filtered_data])
+        
+    print(f"Outlier Removal: Dropped {initial_count - len(df_clean)} rows based on {column}")
+    return df_clean
 
 def main():
     # Paths
@@ -155,6 +185,10 @@ def main():
         'MeanVoicedSegmentLengthSec',
         'VoicedSegmentsPerSec',
     ]
+
+    # winnowing out 3 standard deviation outliers
+    df = remove_speaker_outliers(df, 'F0semitoneFrom27.5Hz_sma3nz_amean')
+    df = remove_speaker_outliers(df, 'loudness_sma3_amean')
 
     # Speaker-normalize F0
     print("\n" + "="*60)
