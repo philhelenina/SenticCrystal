@@ -163,7 +163,7 @@ def remove_speaker_outliers(df, column, sd_threshold=3):
 def main():
     # Paths
     base_dir = Path('/home/liaojd/SenticCrystal/scripts/MELD/opensmile')
-    features_path = base_dir / 'meld_egemaps_raw.csv'
+    features_path = base_dir / 'meld_egemaps_aggregated.csv'
 
     # Load features
     print("Loading features...")
@@ -239,57 +239,57 @@ def main():
         print(f"Speakers {test_speakers} not found in the current dataset slice.")
 
     # --- 7. Statistical Tests (Emotion Analysis) ---
-    print("\n" + "="*60)
-    print("STATISTICAL TESTS: JOY vs. SADNESS")
-    print("="*60)
+    # print("\n" + "="*60)
+    # print("STATISTICAL TESTS: JOY vs. SADNESS")
+    # print("="*60)
 
-    from scipy import stats
+    # from scipy import stats
 
-    emotion_a = 'joy'
-    emotion_b = 'sadness'
+    # emotion_a = 'joy'
+    # emotion_b = 'sadness'
 
   
-    df_a = df[df['Emotion'] == emotion_a]
-    df_b = df[df['Emotion'] == emotion_b]
+    # df_a = df[df['Emotion'] == emotion_a]
+    # df_b = df[df['Emotion'] == emotion_b]
 
-    if not df_a.empty and not df_b.empty:
-        # Test the Normalized Pitch
-        f0_norm_col = 'F0semitone_speakerNorm' 
+    # if not df_a.empty and not df_b.empty:
+    #     # Test the Normalized Pitch
+    #     f0_norm_col = 'F0semitone_speakerNorm' 
         
-        if f0_norm_col in df.columns:
-            group_a = df_a[f0_norm_col].dropna()
-            group_b = df_b[f0_norm_col].dropna()
+    #     if f0_norm_col in df.columns:
+    #         group_a = df_a[f0_norm_col].dropna()
+    #         group_b = df_b[f0_norm_col].dropna()
             
-            t, p = stats.ttest_ind(group_a, group_b)
+    #         t, p = stats.ttest_ind(group_a, group_b)
             
-            # Calculate Effect Size (Cohen's d)
-            pooled_std = np.sqrt(((len(group_a)-1)*group_a.std()**2 + (len(group_b)-1)*group_b.std()**2) / (len(group_a)+len(group_b)-2))
-            d = (group_a.mean() - group_b.mean()) / pooled_std if pooled_std > 0 else 0
+    #         # Calculate Effect Size (Cohen's d)
+    #         pooled_std = np.sqrt(((len(group_a)-1)*group_a.std()**2 + (len(group_b)-1)*group_b.std()**2) / (len(group_a)+len(group_b)-2))
+    #         d = (group_a.mean() - group_b.mean()) / pooled_std if pooled_std > 0 else 0
             
-            sig = '***' if p < 0.001 else '**' if p < 0.01 else '*' if p < 0.05 else ''
+    #         sig = '***' if p < 0.001 else '**' if p < 0.01 else '*' if p < 0.05 else ''
             
-            print(f"\nFeature: {f0_norm_col}")
-            print(f"  {emotion_a.capitalize()}: {group_a.mean():.3f} ± {group_a.std():.3f}")
-            print(f"  {emotion_b.capitalize()}: {group_b.mean():.3f} ± {group_b.std():.3f}")
-            print(f"  t-stat: {t:.3f}, p-value: {p:.4f} {sig}")
-            print(f"  Effect Size (Cohen's d): {d:.3f}")
-    else:
-        print(f"Could not find enough data for {emotion_a} and {emotion_b} to perform tests.")
+    #         print(f"\nFeature: {f0_norm_col}")
+    #         print(f"  {emotion_a.capitalize()}: {group_a.mean():.3f} ± {group_a.std():.3f}")
+    #         print(f"  {emotion_b.capitalize()}: {group_b.mean():.3f} ± {group_b.std():.3f}")
+    #         print(f"  t-stat: {t:.3f}, p-value: {p:.4f} {sig}")
+    #         print(f"  Effect Size (Cohen's d): {d:.3f}")
+    # else:
+    #     print(f"Could not find enough data for {emotion_a} and {emotion_b} to perform tests.")
 
-    print("\n--- Speaker Bias Check (Ross vs. Phoebe) ---")
+    # print("\n--- Speaker Bias Check (Ross vs. Phoebe) ---")
 
-    f0_orig = 'F0semitoneFrom27.5Hz_sma3nz_amean'
-    f0_norm_col = f0_orig.replace('From27.5Hz', '_speakerNorm')
+    # f0_orig = 'F0semitoneFrom27.5Hz_sma3nz_amean'
+    # f0_norm_col = f0_orig.replace('From27.5Hz', '_speakerNorm')
 
-    # Verify the column exists before calling it
-    if f0_norm_col in df.columns:
-        ross_pitch = df[df['Speaker'] == 'Ross'][f0_norm_col].dropna()
-        phoebe_pitch = df[df['Speaker'] == 'Phoebe'][f0_norm_col].dropna()
+    # # Verify the column exists before calling it
+    # if f0_norm_col in df.columns:
+    #     ross_pitch = df[df['Speaker'] == 'Ross'][f0_norm_col].dropna()
+    #     phoebe_pitch = df[df['Speaker'] == 'Phoebe'][f0_norm_col].dropna()
         
-        t_stat, p_val = stats.ttest_ind(ross_pitch, phoebe_pitch)
-        print(f"Post-Normalization Pitch Difference: t={t_stat:.3f}, p={p_val:.4f}")
-    else:
-        print(f"Error: Could not find column {f0_norm_col}. Check column names in df.columns.")
+    #     t_stat, p_val = stats.ttest_ind(ross_pitch, phoebe_pitch)
+    #     print(f"Post-Normalization Pitch Difference: t={t_stat:.3f}, p={p_val:.4f}")
+    # else:
+    #     print(f"Error: Could not find column {f0_norm_col}. Check column names in df.columns.")
 
     return df
 
