@@ -10,6 +10,12 @@ Supported feature modes:
 - concat_pooled (concatenate both pooled directions)
 - text_query_audio_kv_tokens
 - audio_query_text_kv_tokens
+
+Running:
+python3 scripts/models/opensmile_sroberta/train_cross_modal_attention_classifier.py --model both
+python3 scripts/models/opensmile_sroberta/train_cross_modal_attention_classifier.py --feature_mode text_query_audio_kv --model both
+python3 scripts/models/opensmile_sroberta/train_cross_modal_attention_classifier.py --feature_mode audio_query_text_kv --model both
+
 """
 
 import argparse
