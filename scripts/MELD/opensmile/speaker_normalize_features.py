@@ -160,6 +160,129 @@ def remove_speaker_outliers(df, column, sd_threshold=3):
     print(f"Outlier Removal: Dropped {initial_count - len(df_clean)} rows based on {column}")
     return df_clean
 
+def generate_acoustic_deviation_summary(df, row_index, other_features_list):
+    """
+    Generates a text summary of acoustic deviation vs speaker baseline 
+    for a specific row index in your processed dataframe.
+    """
+    row = df.iloc[row_index]
+    speaker = row['Speaker']
+    
+    # 1. F0 Mean Z-Score
+    # Take the speaker-normalized semitone and divide by the speaker's standard deviation 
+    # of semitones to transform it into a true Z-score (sigma value)
+    f0_norm_col = 'F0semitone_speakerNorm'
+    speaker_rows = df[df['Speaker'] == speaker]
+    
+    # Calculate standard deviation of the speaker's normalized semitone values
+    f0_sd = speaker_rows[f0_norm_col].std()
+    f0_mean_z = row[f0_norm_col] / f0_sd if f0_sd > 0 else 0
+    
+    # 2. F0 Range Z-Score (using openSMILE's F0 standard deviation column)
+    f0_std_col = 'F0semitoneFrom27.5Hz_sma3nz_stddevNorm'
+    if f0_std_col in df.columns:
+        f0_range_baseline_mean = speaker_rows[f0_std_col].mean()
+        f0_range_baseline_std = speaker_rows[f0_std_col].std()
+        f0_range_z = (row[f0_std_col] - f0_range_baseline_mean) / f0_range_baseline_std if f0_range_baseline_std > 0 else 0
+    else:
+        f0_range_z = 0
+
+    # 3. Intensity Z-Score (Loudness)
+    loud_z_col = 'loudness_sma3_amean_speakerZ'
+    intensity_z = row[loud_z_col] if loud_z_col in df.columns else 0
+
+    # 4. Speech Rate Percentage Increase
+    rate_col = 'VoicedSegmentsPerSec'
+    if rate_col in df.columns:
+        rate_baseline = speaker_rows[rate_col].mean()
+        speech_rate_pct = ((row[rate_col] - rate_baseline) / rate_baseline) * 100 if rate_baseline > 0 else 0
+    else:
+        speech_rate_pct = 0
+
+    # 5. Voice Quality (Jitter)
+    jitter_z_col = 'jitterLocal_sma3nz_amean_speakerZ'
+    jitter_z = row[jitter_z_col] if jitter_z_col in df.columns else 0
+    voice_quality = "tense" if jitter_z > 1.5 else "breathy" if jitter_z < -1.5 else "normal"
+
+    # Quick labels
+    f0_label = "HIGH" if f0_mean_z > 1.5 else "LOW" if f0_mean_z < -1.5 else "NORMAL"
+    range_label = "WIDE" if f0_range_z > 1.5 else "NARROW" if f0_range_z < -1.5 else "NORMAL"
+    loud_label = "LOUD" if intensity_z > 1.5 else "QUIET" if intensity_z < -1.5 else "NORMAL"
+    rate_label = "FAST" if speech_rate_pct > 25 else "SLOW" if speech_rate_pct < -25 else "NORMAL"
+
+    summary = (
+        f"Dialogue ID: {row['Dialogue_ID']} | Speaker: {speaker}\n"
+        f"Acoustic deviation summary (vs. speaker baseline):\n"
+        f"- F0 mean: {f0_mean_z:+.1f}σ ({f0_label})\n"
+        f"- F0 range: {f0_range_z:+.1f}σ ({range_label} — emotional activation)\n"
+        f"- Intensity: {intensity_z:+.1f}σ ({loud_label})\n"
+        f"- Speech rate: {speech_rate_pct:+.0f}% ({rate_label})\n"
+        f"- Voice quality: {voice_quality} (jitter {jitter_z:+.1f}σ)"
+    )
+    return summary
+def create_llm_acoustic_prompts(df):
+    """
+    Computes true standard deviation metrics from the normalized data
+    and generates a clean text block column for LLM injection.
+    """
+    df = df.copy()
+    prompts = []
+    
+    # Pre-calculate speaker-level standard deviations for the F0 semitone column
+    # to convert semitones relative to mean into a true Z-score (sigma).
+    f0_norm_col = 'F0semitone_speakerNorm_sma3nz_amean'
+    f0_sds = df.groupby('Speaker')[f0_norm_col].transform('std')
+    
+    # Loop through the dataframe to build strings row by row
+    for idx, row in df.iterrows():
+        speaker = row['Speaker']
+        
+        # 1. F0 Mean Z-score
+        f0_sd = f0_sds.loc[idx]
+        f0_mean_z = row[f0_norm_col] / f0_sd if (pd.notna(f0_sd) and f0_sd > 0) else 0
+        
+        # 2. F0 Range Z-score (Spread of pitch)
+        f0_std_col = 'F0semitoneFrom27.5Hz_sma3nz_stddevNorm'
+        # Compare current utterance spread to speaker's average spread
+        speaker_rows = df[df['Speaker'] == speaker]
+        range_mean = speaker_rows[f0_std_col].mean()
+        range_std = speaker_rows[f0_std_col].std()
+        f0_range_z = (row[f0_std_col] - range_mean) / range_std if (pd.notna(range_std) and range_std > 0) else 0
+
+        # 3. Intensity Z-score (Loudness)
+        loud_col = 'loudness_sma3nz_amean_speakerZ'
+        intensity_z = row[loud_col] if loud_col in df.columns else 0
+
+        # 4. Speech Rate (% change vs speaker average)
+        rate_col = 'VoicedSegmentsPerSec'
+        rate_baseline = speaker_rows[rate_col].mean()
+        speech_rate_pct = ((row[rate_col] - rate_baseline) / rate_baseline) * 100 if (pd.notna(rate_baseline) and rate_baseline > 0) else 0
+
+        # 5. Voice Quality (Jitter Z-score)
+        jitter_col = 'jitterLocal_sma3nz_amean_speakerZ'
+        jitter_z = row[jitter_col] if jitter_col in df.columns else 0
+        
+        # Qualifiers / Labels for the LLM
+        f0_label = "HIGH" if f0_mean_z > 1.2 else "LOW" if f0_mean_z < -1.2 else "NORMAL"
+        range_label = "WIDE — emotional activation" if f0_range_z > 1.2 else "MONOTONE" if f0_range_z < -1.2 else "NORMAL"
+        loud_label = "LOUD" if intensity_z > 1.2 else "QUIET" if intensity_z < -1.2 else "NORMAL"
+        rate_label = "FAST" if speech_rate_pct > 25 else "SLOW" if speech_rate_pct < -25 else "NORMAL"
+        voice_quality = "tense" if jitter_z > 1.5 else "shaky/unstable" if jitter_z > 1.0 else "normal"
+
+        # Build the exact string context block
+        prompt_block = (
+            f"Acoustic deviation summary for {speaker} (compared to their typical baseline):\n"
+            f"- F0 mean: {f0_mean_z:+.1f}σ ({f0_label})\n"
+            f"- F0 range: {f0_range_z:+.1f}σ ({range_label})\n"
+            f"- Intensity: {intensity_z:+.1f}σ ({loud_label})\n"
+            f"- Speech rate: {speech_rate_pct:+.0f}% ({rate_label})\n"
+            f"- Voice quality: {voice_quality} (jitter {jitter_z:+.1f}σ)"
+        )
+        prompts.append(prompt_block)
+        
+    df['acoustic_prompt_injection'] = prompts
+    return df
+
 def main():
     # Paths
     base_dir = Path('/home/liaojd/SenticCrystal/scripts/MELD/opensmile')
@@ -176,7 +299,7 @@ def main():
 
     # Identify other acoustic features for z-score normalization
     other_features = [
-        'loudness_sma3_amean',
+        'loudness_sma3nz_amean',
         'jitterLocal_sma3nz_amean',
         'shimmerLocaldB_sma3nz_amean',
         'HNRdBACF_sma3nz_amean',
@@ -205,38 +328,43 @@ def main():
     print("="*60)
     df = speaker_zscore_normalize(df, other_features)
 
+    df = create_llm_acoustic_prompts(df) 
+
     # Save normalized features
     output_path = base_dir / 'features' / 'egemaps_features_speaker_normalized.csv'
     df.to_csv(output_path, index=False)
     print(f"\nNormalized features saved to: {output_path}")
 
-    # Compare before/after normalization
-    print("\n" + "="*60)
-    print("Comparison: Before vs After Normalization")
-    print("="*60)
+    print("\n--- SAMPLE INJECTION PROMPT FOR LLM ---")
+    print(df['acoustic_prompt_injection'].iloc[0])
 
-    test_speakers = ['Ross', 'Phoebe', "Joey", "Rachel", "Chandler"]
-    comparison_df = df[df['Speaker'].isin(test_speakers)]
+    # # Compare before/after normalization
+    # print("\n" + "="*60)
+    # print("Comparison: Before vs After Normalization")
+    # print("="*60)
 
-    if not comparison_df.empty:
-        f0_orig = 'F0semitoneFrom27.5Hz_sma3nz_amean'
-        f0_norm = f0_orig.replace('From27.5Hz', '_speakerNorm')
+    # test_speakers = ['Ross', 'Phoebe', "Joey", "Rachel", "Chandler"]
+    # comparison_df = df[df['Speaker'].isin(test_speakers)]
 
-        print("Average Pitch (Mean) by Speaker:")
-        print("-" * 30)
+    # if not comparison_df.empty:
+    #     f0_orig = 'F0semitoneFrom27.5Hz_sma3nz_amean'
+    #     f0_norm = f0_orig.replace('From27.5Hz', '_speakerNorm')
+
+    #     print("Average Pitch (Mean) by Speaker:")
+    #     print("-" * 30)
         
 
-        print("BEFORE (27.5Hz Ref):")
-        print(comparison_df.groupby('Speaker')[f0_orig].mean())
+    #     print("BEFORE (27.5Hz Ref):")
+    #     print(comparison_df.groupby('Speaker')[f0_orig].mean())
         
-        print("\nAFTER (Speaker-Specific Ref):")
-        print(comparison_df.groupby('Speaker')[f0_norm].mean())
+    #     print("\nAFTER (Speaker-Specific Ref):")
+    #     print(comparison_df.groupby('Speaker')[f0_norm].mean())
         
-        print("-" * 30)
-        print("Note: In the 'AFTER' section, both should be extremely close to 0.00,")
-        print("indicating that the baseline pitch difference has been removed.")
-    else:
-        print(f"Speakers {test_speakers} not found in the current dataset slice.")
+    #     print("-" * 30)
+    #     print("Note: In the 'AFTER' section, both should be extremely close to 0.00,")
+    #     print("indicating that the baseline pitch difference has been removed.")
+    # else:
+    #     print(f"Speakers {test_speakers} not found in the current dataset slice.")
 
     # --- 7. Statistical Tests (Emotion Analysis) ---
     # print("\n" + "="*60)
